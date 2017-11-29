@@ -1,3 +1,4 @@
+
 class E_AnyVal(in_value: AnyVal){
   var value:AnyVal = in_value
 
