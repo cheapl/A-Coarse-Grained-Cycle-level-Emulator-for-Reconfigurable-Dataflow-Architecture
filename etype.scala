@@ -1,3 +1,4 @@
+package etype
 
 class E_AnyVal(in_value: AnyVal){
   var value:AnyVal = in_value
@@ -852,50 +853,5 @@ class E_AnyVal(in_value: AnyVal){
 }
 
 
-
 class NaN extends E_AnyVal{}
 
-
-
-
-object main{
-
-  def printVal(x: E_AnyVal){
-    if (x.value.isInstanceOf[Int]) println("Int:"+x.value.asInstanceOf[Int])
-    else if (x.value.isInstanceOf[Long]) println("Long:"+x.value.asInstanceOf[Long])
-    else if (x.value.isInstanceOf[Float]) println("Float:"+x.value.asInstanceOf[Float])
-    else if (x.value.isInstanceOf[Double]) println("Double:"+x.value.asInstanceOf[Double])
-    else if (x.value.isInstanceOf[Char]) println("Double:"+x.value.asInstanceOf[Char])
-    else if (x.value.isInstanceOf[Boolean]) println("Boolean:"+x.value.asInstanceOf[Boolean])
-    else if (x.isInstanceOf[NaN]) println("NaN")
-    else println("Error")
-  }
-
-
-  def main(args: Array[String]): Unit = {
-  
-    var NaN = new NaN
-    var a_Int:Int = 2
-    var a_Long:Long = 5
-    var a_Char:Char = '1'
-
-    var b_Int:Int = 8
-    var b_Double:Double = 8.88
-
-    var c_Boolean:Boolean = true
-
-    var a = new E_AnyVal(a_Char)
-    var b = new E_AnyVal(b_Double)
-    var c = new E_AnyVal(c_Boolean)
-    var d = new E_AnyVal(a_Int)
-
-
-    printVal(NaN % NaN)
-    printVal(a ^ a)
-    printVal(a >>> d)
-    printVal(a <= b)
-    printVal(c || c)
-    printVal(!NaN)
-
-  }
-}
