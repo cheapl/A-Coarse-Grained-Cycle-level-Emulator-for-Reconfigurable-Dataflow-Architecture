@@ -7,7 +7,7 @@
          "indegree": 1,
          "outdegree": 1,
          "node_type":1,
-         "function":"Output(0) = input(0) + 1;println(Output(0))"
+         "function":"Output(0) = input(0) + 1;printVal(Output(0))"
      },
  
      {
@@ -15,7 +15,7 @@
          "indegree": 1,
          "outdegree": 1,
          "node_type":0,
-         "function":"Output(0) = input(0) + 1;println(Output(0))"
+         "function":"Output(0) = input(0) + 1;printVal(Output(0))"
      },
  
      {
@@ -23,7 +23,7 @@
          "indegree": 1,
          "outdegree": 1,
          "node_type": 0,
-         "function":"Output(0) = input(0) + 1;println(Output(0))"
+         "function":"Output(0) = input(0) + 1;printVal(Output(0))"
      },
 
      {
@@ -31,7 +31,7 @@
         "indegree": 1,
         "outdegree": 1,
         "node_type": 0,
-        "function":"Output(0) = input(0) + 1;println(Output(0))"
+        "function":"Output(0) = input(0) + 1;printVal(Output(0))"
     },
 
     {
@@ -39,7 +39,7 @@
         "indegree": 1,
         "outdegree": 1,
         "node_type": -1,
-        "function":"Output(0) = input(0) + 1;println(Output(0))"
+        "function":"Output(0) = input(0) + 1;printVal(Output(0))"
     }
     
     ]

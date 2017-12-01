@@ -1,0 +1,79 @@
+{
+    
+     "nodes": [
+ 
+     {
+         "id": "1",
+         "indegree": 2,
+         "outdegree": 2,
+         "node_type":1,
+         "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+     },
+ 
+     {
+         "id": "2",
+         "indegree": 2,
+         "outdegree": 2,
+         "node_type":1,
+         "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+     },
+ 
+     {
+         "id": "3",
+         "indegree": 2,
+         "outdegree": 2,
+         "node_type": 1,
+         "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+     },
+
+     {
+        "id": "4",
+        "indegree": 2,
+        "outdegree": 2,
+        "node_type": 1,
+        "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+    },
+
+    {
+        "id": "5",
+        "indegree": 2,
+        "outdegree": 2,
+        "node_type": 0,
+        "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+    },
+
+    {
+        "id": "6",
+        "indegree": 2,
+        "outdegree": 2,
+        "node_type": 0,
+        "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+    },
+
+    {
+        "id": "7",
+        "indegree": 2,
+        "outdegree": 2,
+        "node_type": 1,
+        "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+    },
+
+    {
+        "id": "8",
+        "indegree": 2,
+        "outdegree": 2,
+        "node_type": 0,
+        "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0))"
+    },
+
+    {
+        "id": "9",
+        "indegree": 2,
+        "outdegree": 2,
+        "node_type": -1,
+        "function":"Local(0) += Input(0)*Input(1);Output(0)=Input(0);Output(1)=Input(1);printVal(Local(0));if ( !Output(0).isInstanceOf[NaN] ) exit()"
+    }
+    
+    ]
+ 
+   }

@@ -1,0 +1,104 @@
+{
+    
+        "edges":[
+    
+        {
+            "node_from":"1",
+            "node_to":"2",
+            "node_from_output":0,
+            "node_to_input":0,
+            "bandwidth":1
+        },
+    
+        {
+            "node_from":"1",
+            "node_to":"4",
+            "node_from_output":1,
+            "node_to_input":1,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"2",
+            "node_to":"3",
+            "node_from_output":0,
+            "node_to_input":0,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"2",
+            "node_to":"5",
+            "node_from_output":1,
+            "node_to_input":1,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"3",
+            "node_to":"6",
+            "node_from_output":1,
+            "node_to_input":1,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"4",
+            "node_to":"5",
+            "node_from_output":0,
+            "node_to_input":0,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"4",
+            "node_to":"7",
+            "node_from_output":1,
+            "node_to_input":1,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"5",
+            "node_to":"6",
+            "node_from_output":0,
+            "node_to_input":0,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"5",
+            "node_to":"8",
+            "node_from_output":1,
+            "node_to_input":1,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"6",
+            "node_to":"9",
+            "node_from_output":1,
+            "node_to_input":1,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"7",
+            "node_to":"8",
+            "node_from_output":0,
+            "node_to_input":0,
+            "bandwidth":1
+        },
+
+        {
+            "node_from":"8",
+            "node_to":"9",
+            "node_from_output":0,
+            "node_to_input":0,
+            "bandwidth":1
+        }
+    
+        ]
+    
+        
+      }
