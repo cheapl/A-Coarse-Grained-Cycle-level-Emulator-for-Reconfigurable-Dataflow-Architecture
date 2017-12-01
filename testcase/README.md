@@ -1,4 +1,5 @@
-##sequential
+
+## Sequential
 
 * 5 PUs.
 * 4 edges.
