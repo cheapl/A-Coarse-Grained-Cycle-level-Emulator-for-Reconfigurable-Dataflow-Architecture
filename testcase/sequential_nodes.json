@@ -1,0 +1,47 @@
+{
+    
+     "nodes": [
+ 
+     {
+         "id": "1",
+         "indegree": 1,
+         "outdegree": 1,
+         "node_type":1,
+         "function":"Output(0) = input(0) + 1;println(Output(0))"
+     },
+ 
+     {
+         "id": "2",
+         "indegree": 1,
+         "outdegree": 1,
+         "node_type":0,
+         "function":"Output(0) = input(0) + 1;println(Output(0))"
+     },
+ 
+     {
+         "id": "3",
+         "indegree": 1,
+         "outdegree": 1,
+         "node_type": 0,
+         "function":"Output(0) = input(0) + 1;println(Output(0))"
+     },
+
+     {
+        "id": "4",
+        "indegree": 1,
+        "outdegree": 1,
+        "node_type": 0,
+        "function":"Output(0) = input(0) + 1;println(Output(0))"
+    },
+
+    {
+        "id": "5",
+        "indegree": 1,
+        "outdegree": 1,
+        "node_type": -1,
+        "function":"Output(0) = input(0) + 1;println(Output(0))"
+    }
+    
+    ]
+ 
+   }
