@@ -4,26 +4,25 @@ import scala.collection.mutable.ArrayBuffer
 
 //package parser
 
-class node(in_id:String, in_indegree:Int, in_outdegree:Int, in_node_type:Int, in_function:String){
-  var id:String = in_id
-  var indegree:Int = in_indegree
-  var outdegree:Int = in_outdegree
-  var node_type:Int = in_node_type
-  var function:String = in_function
+class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_input_port:Int){
+  var source:Int = Source
+  var destination:Int = Destination 
+  var source_output_port:Int = Source_output_port 
+  var destination_input_port:Int = Destination_input_port 
 }
 
-class edge(in_node_from:String, in_node_to:String, in_node_from_output:Int, in_node_to_input:Int, in_bandwidth:Int){
-  var node_from:String = in_node_from
-  var node_to:String = in_node_to
-  var node_from_output:Int = in_node_from_output
-  var node_to_input:Int = in_node_to_input
-  var bandwidth:Int = in_bandwidth
+class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge]){
+  var ID:Int = id 
+  var input_port_length:Int = Input_port_length 
+  var output_port_length:Int = Output_port_length 
+  var input_port_width:Array[Int] = Input_port_width
+  var output_port_width:Array[Int] = Output_port_width
+  var register_length:Int = Register_length
+  var register_width:Array[Int] = Register_width
+  var code:String = Code
+  var edgesList:Array[edge] = EdgesList
 }
 
-class DFG(in_nodes:ArrayBuffer[node], in_edges:ArrayBuffer[edge]){
-  var nodes:ArrayBuffer[node] = in_nodes
-  var edges:ArrayBuffer[edge] = in_edges
-}
 
 class CC[T]{ 
   def unapply(a:Any):Option[T] = Some(a.asInstanceOf[T]) 
@@ -37,7 +36,11 @@ object D extends CC[Double]
 
 object parser{
 
-  def parser(fileNameNode: String, fileNameEdge: String): DFG = {
+  def strToList(Str:String) : Array[Int] = {
+    Str.split(",").map(x => x.toInt) 
+  }
+
+  def parser(fileNameNode: String, fileNameEdge: String): Array[arg_pack] = {
 
     var nodesStr:String = ""
     var edgesStr:String = ""
@@ -54,51 +57,87 @@ object parser{
       Some(M(map)) <- List(JSON.parseFull(nodesStr))
       L(nodes) = map("nodes")
       M(node) <- nodes
-      S(id) = node("id")
-      D(indegree) = node("indegree")
-      D(outdegree) = node("outdegree")
-      D(node_type) = node("node_type")
-      S(function) = node("function")
+      D(id) = node("ID")
+      D(input_port_length) = node("input_port_length")
+      D(output_port_length) = node("output_port_length")
+      S(input_port_width) = node("input_port_width")
+      S(output_port_width) = node("output_port_width")
+      D(register_length) = node("register_length")
+      S(register_width) = node("register_width")
+      S(code) = node("code")
     } yield {
-      (id, indegree, outdegree, node_type, function)
+      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code)
     }
 
     val edgesList = for {
       Some(M(map)) <- List(JSON.parseFull(edgesStr))
       L(edges) = map("edges")
       M(edge) <- edges
-      S(node_from) = edge("node_from")
-      S(node_to) = edge("node_to")
-      D(node_from_output) = edge("node_from_output")
-      D(node_to_input) = edge("node_to_input")
-      D(bandwidth) = edge("bandwidth")
+      D(source) = edge("source")
+      D(destination) = edge("destination")
+      D(source_output_port) = edge("source_output_port")
+      D(destination_input_port) = edge("destination_input_port")
     } yield {
-      (node_from, node_to, node_from_output, node_to_input, bandwidth)
+      (source, destination, source_output_port, destination_input_port)
     }
 
 
-    var E_nodesList = ArrayBuffer[node]()
-    for (nodeTuple <- nodesList){
-      var newNode = new node(nodeTuple._1, nodeTuple._2.toInt, nodeTuple._3.toInt, nodeTuple._4.toInt, nodeTuple._5)
-      E_nodesList += newNode
+    //println(nodesList.length)
+    //println(edgesList.length)
+    
+    var edgesArray = new Array[edge](edgesList.length)
+    var i:Int = 0
+    while (i < edgesList.length){
+      edgesArray(i) = new edge(edgesList(i)._1.toInt, edgesList(i)._2.toInt, edgesList(i)._3.toInt, edgesList(i)._4.toInt)
+      i+=1
     }
 
-    var E_edgesList = ArrayBuffer[edge]()
-    for (edgeTuple <- edgesList){
-      var newEdge = new edge(edgeTuple._1, edgeTuple._2, edgeTuple._3.toInt, edgeTuple._4.toInt, edgeTuple._5.toInt)
-      E_edgesList += newEdge
+    var Arg_packs = new Array[arg_pack](nodesList.length)
+    var k:Int = 0
+    while (k < nodesList.length) {
+      var id:Int = nodesList(k)._1.toInt
+      var counter:Int = 0
+      var j:Int = 0
+      for (Edge <- edgesArray){
+        if (Edge.source == id) counter += 1
+      }
+      //println(counter)
+      var EdgesList = new Array[edge](counter)
+      for (Edge <- edgesArray){
+        if (Edge.source == id) {EdgesList(j) =  Edge; j+=1}
+      }
+      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList)
+
+      k+=1
     }
-    new DFG(E_nodesList,E_edgesList)
+
+    Arg_packs
   
   }
+
 }
 
 
 object main{
 
   def main(args: Array[String]): Unit = {
-    var res = parser.parser("nodes.json","edges.json")
-    println(res.edges(0).node_from_output)
+    var res =  parser.parser("nodes.json","edges.json")
+    println(res(0).ID)
+    println(res(0).input_port_length)
+    println(res(0).output_port_length)
+    println("\n")
+    res(0).input_port_width.foreach(print)
+    println("\n")
+    res(0).output_port_width.foreach(print)
+    println("\n")
+    println(res(0).register_length)
+    println("\n")
+    res(0).register_width.foreach(print)
+    println("\n")
+    println(res(0).code)
+    println("\n")
+    res(0).edgesList.foreach(x => print(x.destination))
+    println("\n")
   }
 
 }

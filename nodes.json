@@ -3,27 +3,36 @@
     "nodes": [
 
     {
-        "id": "1",
-        "indegree": 2,
-        "outdegree": 1,
-        "node_type":1,
-        "function":"var a:Int = 2;println(a)"
+        "ID": 1,
+        "input_port_length": 2,
+        "output_port_length": 1,
+        "input_port_width": "1,1",
+        "output_port_width": "1",
+        "register_length": 1,
+        "register_width": "1",
+        "code":"var a:Int = 2;println(a)"
     },
 
     {
-        "id": "2",
-        "indegree": 1,
-        "outdegree": 1,
-        "node_type":1,
-        "function":"var b:Int = 3;println(b)"
+        "ID": 2,
+        "input_port_length": 1,
+        "output_port_length": 1,
+        "input_port_width": "1",
+        "output_port_width": "1",
+        "register_length": 1,
+        "register_width": "1",
+        "code":"var b:Int = 3;println(b)"
     },
 
     {
-        "id": "3",
-        "indegree": 3,
-        "outdegree": 1,
-        "node_type":-1,
-        "function":"var c:Int = 4;println(c)"
+        "ID": 3,
+        "input_port_length": 3,
+        "output_port_length": 1,
+        "input_port_width": "1,1,1",
+        "output_port_width": "1",
+        "register_length": 1,
+        "register_width": "1",
+        "code":"var c:Int = 4;println(c)"
     }
     ]
 
