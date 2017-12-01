@@ -5,12 +5,16 @@
     {
         "node_from":"1",
         "node_to":"3",
+        "node_from_output":0,
+        "node_to_input":2,
         "bandwidth":10
     },
 
     {
         "node_from":"2",
         "node_to":"3",
+        "node_from_output":0,
+        "node_to_input":0,
         "bandwidth":10
     }
 

@@ -2,6 +2,8 @@ import scala.io.Source
 import scala.util.parsing.json.JSON
 import scala.collection.mutable.ArrayBuffer
 
+//package parser
+
 class node(in_id:String, in_indegree:Int, in_outdegree:Int, in_node_type:Int, in_function:String){
   var id:String = in_id
   var indegree:Int = in_indegree
@@ -10,9 +12,11 @@ class node(in_id:String, in_indegree:Int, in_outdegree:Int, in_node_type:Int, in
   var function:String = in_function
 }
 
-class edge(in_node_from:String, in_node_to:String, in_bandwidth:Int){
+class edge(in_node_from:String, in_node_to:String, in_node_from_output:Int, in_node_to_input:Int, in_bandwidth:Int){
   var node_from:String = in_node_from
   var node_to:String = in_node_to
+  var node_from_output:Int = in_node_from_output
+  var node_to_input:Int = in_node_to_input
   var bandwidth:Int = in_bandwidth
 }
 
@@ -39,19 +43,11 @@ object parser{
     var edgesStr:String = ""
 
     val file1=Source.fromFile(fileNameNode)
-    for(line <- file1.getLines)
-    {
-      nodesStr = nodesStr + line
-      //println(line)
-    }
+    for(line <- file1.getLines) nodesStr = nodesStr + line
     file1.close
 
     val file2=Source.fromFile(fileNameEdge)
-    for(line <- file2.getLines)
-    {
-      edgesStr = edgesStr + line
-      //println(line)
-    }
+    for(line <- file2.getLines) edgesStr = edgesStr + line
     file2.close
 
     val nodesList = for {
@@ -73,29 +69,25 @@ object parser{
       M(edge) <- edges
       S(node_from) = edge("node_from")
       S(node_to) = edge("node_to")
+      D(node_from_output) = edge("node_from_output")
+      D(node_to_input) = edge("node_to_input")
       D(bandwidth) = edge("bandwidth")
     } yield {
-      (node_from, node_to, bandwidth)
+      (node_from, node_to, node_from_output, node_to_input, bandwidth)
     }
 
-    
-    //println(edgesList)
 
     var E_nodesList = ArrayBuffer[node]()
     for (nodeTuple <- nodesList){
       var newNode = new node(nodeTuple._1, nodeTuple._2.toInt, nodeTuple._3.toInt, nodeTuple._4.toInt, nodeTuple._5)
-      //println(nodeTuple)
       E_nodesList += newNode
     }
 
     var E_edgesList = ArrayBuffer[edge]()
     for (edgeTuple <- edgesList){
-      var newEdge = new edge(edgeTuple._1, edgeTuple._2, edgeTuple._3.toInt)
-      //println(nodeTuple)
+      var newEdge = new edge(edgeTuple._1, edgeTuple._2, edgeTuple._3.toInt, edgeTuple._4.toInt, edgeTuple._5.toInt)
       E_edgesList += newEdge
     }
-
-    //println(E_edgesList(0).bandwidth)
     new DFG(E_nodesList,E_edgesList)
   
   }
@@ -106,7 +98,7 @@ object main{
 
   def main(args: Array[String]): Unit = {
     var res = parser.parser("nodes.json","edges.json")
-    println(res.edges(0).bandwidth)
+    println(res.edges(0).node_from_output)
   }
 
 }
