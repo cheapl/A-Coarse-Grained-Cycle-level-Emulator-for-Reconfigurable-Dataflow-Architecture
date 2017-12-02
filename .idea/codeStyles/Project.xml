@@ -1,0 +1,18 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <ScalaCodeStyleSettings>
+      <option name="REPLACE_CASE_ARROW_WITH_UNICODE_CHAR" value="true" />
+      <option name="REPLACE_MAP_ARROW_WITH_UNICODE_CHAR" value="true" />
+      <option name="REPLACE_FOR_GENERATOR_ARROW_WITH_UNICODE_CHAR" value="true" />
+      <option name="REPLACE_LAMBDA_WITH_GREEK_LETTER" value="true" />
+    </ScalaCodeStyleSettings>
+    <codeStyleSettings language="Scala">
+      <option name="BRACE_STYLE" value="2" />
+      <option name="CLASS_BRACE_STYLE" value="2" />
+      <option name="METHOD_BRACE_STYLE" value="2" />
+      <indentOptions>
+        <option name="USE_TAB_CHARACTER" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
+  </code_scheme>
+</component>
