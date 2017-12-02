@@ -13,5 +13,5 @@ class IOPort(val length: Int) extends Emulator_IOPort
 		{
 			for(i ← 0 until length) destination(i) = buffer.pop()
 		}
-	def write(output: Array[Emulator_Numerics]) : Unit = output.foreach(buffer.push)
+	def write(output: Array[Emulator_Numerics]) : Unit = output.foreach(buffer.push(_))
 }

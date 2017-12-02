@@ -46,6 +46,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 	{
 		EC ! Local_Cycle_Finished(ID)
 	}
+
 	def receive =
 	{
 		case Set_Children(children) ⇒ Array.copy(children, 0, Children, 0, children.length)
