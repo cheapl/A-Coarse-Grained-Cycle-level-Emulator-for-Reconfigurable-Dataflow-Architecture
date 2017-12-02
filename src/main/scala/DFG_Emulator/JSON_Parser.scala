@@ -204,7 +204,7 @@ object calTime{
 object main{
 
   def main(args: Array[String]): Unit = {
-    var res =  parser.parser("nodes.json","edges.json")
+    var res =  parser.parser("testcase/sequential_nodes.json","testcase/sequential_edges.json")
     println("ID:"+res(0).ID)
     println("period:"+res(0).period)
     println("input_port_length:"+res(0).input_port_length)
