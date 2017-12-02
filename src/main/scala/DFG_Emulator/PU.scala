@@ -26,9 +26,21 @@ class PU(val arg_pack: PU_Arg_Pack,
 	val register_width: Array[Int] = arg_pack.register_width
 	val code: String = arg_pack.code
 	val input_ports: Array[IOPort] = new Array[IOPort](input_port_length)
-	val output_ports: Array[IOPort] = new Array[IOPort](input_port_length)
-	val destination: Array[Connection] = new Array[Connection](output_port_length)
+	val output_ports: Array[IOPort] = new Array[IOPort](output_port_length)
+	val input_data: Array[Array[Emulator_Numerics]] = new Array[Array[Emulator_Numerics]](input_port_length)
+	val output_data: Array[Array[Emulator_Numerics]] = new Array[Array[Emulator_Numerics]](output_port_length)
 	val Children: Array[ActorRef] = new Array[ActorRef](output_port_length)
+
+	for(i ← 0 until input_port_length)
+		{
+			input_ports(i) = new IOPort(input_port_width(i))
+			input_data(i) = new Array[Emulator_Numerics](input_port_width(i))
+		}
+	for(i ← 0 until output_port_length)
+		{
+			output_ports(i) = new IOPort(output_port_width(i))
+			output_data(i) = new Array[Emulator_Numerics](output_port_width(i))
+		}
 
 	def invoke(): Unit =
 	{
@@ -36,7 +48,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 	}
 	def receive =
 	{
-		case Set_Children(children) ⇒ Array.copy(children, 0, Children, 0, children.size)
+		case Set_Children(children) ⇒ Array.copy(children, 0, Children, 0, children.length)
 		case Synchronize ⇒ invoke()
 		case Data_message(data, receiver_port) ⇒ input_ports(receiver_port).write(data)
 		case "test" ⇒ log.info(s"${ID}received test")
