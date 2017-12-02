@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dfg_simulator.iml" filepath="$PROJECT_DIR$/.idea/modules/dfg_simulator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dfg_simulator-build.iml" filepath="$PROJECT_DIR$/.idea/modules/dfg_simulator-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/a-coarse-grained-cycle-level-emulator-for-reconfigurable-dataflow-architecture.iml" filepath="$PROJECT_DIR$/.idea/modules/a-coarse-grained-cycle-level-emulator-for-reconfigurable-dataflow-architecture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/a-coarse-grained-cycle-level-emulator-for-reconfigurable-dataflow-architecture-build.iml" filepath="$PROJECT_DIR$/.idea/modules/a-coarse-grained-cycle-level-emulator-for-reconfigurable-dataflow-architecture-build.iml" />
     </modules>
   </component>
 </project>

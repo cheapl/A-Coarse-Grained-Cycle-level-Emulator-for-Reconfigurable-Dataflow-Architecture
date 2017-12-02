@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="SBT 1" modules="dfg_simulator" />
+    <profile name="SBT 1" modules="dfg_simulator,a-coarse-grained-cycle-level-emulator-for-reconfigurable-dataflow-architecture" />
   </component>
 </project>
