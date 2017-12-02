@@ -13,6 +13,7 @@ class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_inpu
 
 class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge]){
   var ID:Int = id 
+  var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)))
   var input_port_length:Int = Input_port_length 
   var output_port_length:Int = Output_port_length 
   var input_port_width:Array[Int] = Input_port_width
@@ -118,26 +119,102 @@ object parser{
 }
 
 
+object calTime{
+
+  def strToArray(source:String) : ArrayBuffer[Char] = {
+    var res = new ArrayBuffer[Char]()
+    for (char <- source){
+      if (char != ' ') res += char
+    }
+    res
+  }
+
+  def bindOperators(source:ArrayBuffer[Char]) : ArrayBuffer[String] = {
+    var res = new ArrayBuffer[String]()
+    var i:Int = 0
+    while (i < source.length){
+      //println(i)
+      if(source(i) == '='){
+        if(source(i+1) == '=') {res += "==";i+=2}
+        else i+=1
+      }
+      else if(source(i) == '!'){
+        if(source(i+1) == '=') {res += "!=";i+=2}
+        else {res += "!";i+=1}
+      }
+      else if(source(i) == '>'){
+        if(source(i+1) == '=') res += ">="
+        else if(source(i+1) == '>' && source(i+2) != '>') {res += ">>";i+=2}
+        else if(source(i+1) == '>' && source(i+2) == '>') {res += ">>>";i+=3}
+        else {res += ">";i+=1}
+      }
+      else if(source(i) == '<'){
+        if(source(i+1) == '=') {res += "<=";i+2}
+        else if(source(i+1) == '<') {res += "<<";i+=2}
+        else {res += "<";i+=1}
+      }
+      else if(source(i) == '&'){
+        if(source(i+1) == '&') {res += "&&";i+=2}
+        else {res += "&";i+=1}
+      }
+      else if(source(i) == '|'){
+        if(source(i+1) == '|') {res += "||";i+=2}
+        else {res += "|";i+=1}
+      }
+      else {res += source(i).toString;i+=1}
+    }
+    res
+  }
+
+  def calTime(code: ArrayBuffer[String]) : Int = {
+    var res:Int = 0
+    for (ele <- code) {
+      //println(ele)
+      ele match{
+        case "+" => res += 1;
+        case "-" => res += 1;
+        case "*" => res += 1;
+        case "/" => res += 1;
+        case "%" => res += 1;
+        case "==" => res += 1;
+        case "!=" => res += 1;
+        case ">" => res += 1;
+        case "<" => res += 1;
+        case ">=" => res += 1;
+        case "<=" => res += 1;
+        case "&&" => res += 1;
+        case "||" => res += 1;
+        case "!" => res += 1;
+        case "&" => res += 1;
+        case "|" => res += 1;
+        case "^" => res += 1;
+        case "~" => res += 1;
+        case "<<" => res += 1;
+        case ">>" => res += 1;
+        case ">>>" => res += 1;
+        case ele:String => res += 0;
+      }
+    }
+    res
+  } 
+
+}
+
+
 object main{
 
   def main(args: Array[String]): Unit = {
     var res =  parser.parser("nodes.json","edges.json")
-    println(res(0).ID)
-    println(res(0).input_port_length)
-    println(res(0).output_port_length)
-    println("\n")
-    res(0).input_port_width.foreach(print)
-    println("\n")
-    res(0).output_port_width.foreach(print)
-    println("\n")
-    println(res(0).register_length)
-    println("\n")
-    res(0).register_width.foreach(print)
-    println("\n")
-    println(res(0).code)
-    println("\n")
-    res(0).edgesList.foreach(x => print(x.destination))
-    println("\n")
+    println("ID:"+res(0).ID)
+    println("period:"+res(0).period)
+    println("input_port_length:"+res(0).input_port_length)
+    println("output_port_length:"+res(0).output_port_length)
+    println("input_port_width(0):"+res(0).input_port_width(0))
+    println("output_port_width(0):"+res(0).output_port_width(0))
+    println("register_length:"+res(0).register_length)
+    println("register_width(0):"+res(0).register_width(0))
+    println("code:"+res(0).code)
+    println("edgesList(0).destination:"+res(0).edgesList(0).destination)
   }
 
 }
