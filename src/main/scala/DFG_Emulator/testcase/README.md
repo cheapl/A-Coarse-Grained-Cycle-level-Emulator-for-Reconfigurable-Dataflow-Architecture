@@ -26,3 +26,6 @@
 * 11 PUs
 * 12 edges
 * Computing both solution of quadratic formula
+* If in sequential way, it will take 22 steps. But using this DFG, it will take 6 steps.
+
+![Alt text](quadratic.png)
