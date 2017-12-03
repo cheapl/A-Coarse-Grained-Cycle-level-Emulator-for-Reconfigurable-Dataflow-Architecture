@@ -1,3 +1,4 @@
+import scala.math._
 
 class E_AnyVal(in_value: AnyVal){
   var value:AnyVal = in_value
@@ -848,6 +849,80 @@ class E_AnyVal(in_value: AnyVal){
     else new E_AnyVal(-1)
   }
 
+  //pow and sqrt
+  def sqrt() : E_AnyVal = {
+    if (this.isInstanceOf[NaN]) new NaN
+    else if (value.isInstanceOf[Int])  new E_AnyVal(math.sqrt(value.asInstanceOf[Int]))
+    else if (value.isInstanceOf[Long])  new E_AnyVal(math.sqrt(value.asInstanceOf[Long]))
+    else if (value.isInstanceOf[Float])  new E_AnyVal(math.sqrt(value.asInstanceOf[Float]))
+    else if (value.isInstanceOf[Double])  new E_AnyVal(math.sqrt(value.asInstanceOf[Double]))
+    else if (value.isInstanceOf[Char])  new E_AnyVal(math.sqrt(value.asInstanceOf[Char]))
+    else new E_AnyVal(-1)
+  }
+
+  def pow(y: E_AnyVal) : E_AnyVal = {
+    if (this.isInstanceOf[NaN]) new NaN
+    else if (y.isInstanceOf[NaN]) new NaN
+    //For Int
+    else if (value.isInstanceOf[Int]){
+      var y_value:AnyVal = y.value
+      y_value match{
+        case y_value:Int => new E_AnyVal(math.pow(value.asInstanceOf[Int],y_value))
+        case y_value:Long => new E_AnyVal(math.pow(value.asInstanceOf[Int],y_value))
+        case y_value:Float => new E_AnyVal(math.pow(value.asInstanceOf[Int],y_value))
+        case y_value:Double => new E_AnyVal(math.pow(value.asInstanceOf[Int],y_value))
+        case y_value:Char => new E_AnyVal(math.pow(value.asInstanceOf[Int],y_value))
+      }
+    }
+    //For Long
+    else if (value.isInstanceOf[Long]){
+      var y_value:AnyVal = y.value
+      y_value match{
+        case y_value:Int => new E_AnyVal(math.pow(value.asInstanceOf[Long],y_value))
+        case y_value:Long => new E_AnyVal(math.pow(value.asInstanceOf[Long],y_value))
+        case y_value:Float => new E_AnyVal(math.pow(value.asInstanceOf[Long],y_value))
+        case y_value:Double => new E_AnyVal(math.pow(value.asInstanceOf[Long],y_value))
+        case y_value:Char => new E_AnyVal(math.pow(value.asInstanceOf[Long],y_value))
+      }
+    }
+    //For Float
+    else if (value.isInstanceOf[Float]){
+      var y_value:AnyVal = y.value
+      y_value match{
+        case y_value:Int => new E_AnyVal(math.pow(value.asInstanceOf[Float],y_value))
+        case y_value:Long => new E_AnyVal(math.pow(value.asInstanceOf[Float],y_value))
+        case y_value:Float => new E_AnyVal(math.pow(value.asInstanceOf[Float],y_value))
+        case y_value:Double => new E_AnyVal(math.pow(value.asInstanceOf[Float],y_value))
+        case y_value:Char => new E_AnyVal(math.pow(value.asInstanceOf[Float],y_value))
+      }
+    }
+    //For Double
+    else if (value.isInstanceOf[Double]){
+      var y_value:AnyVal = y.value
+      y_value match{
+        case y_value:Int => new E_AnyVal(math.pow(value.asInstanceOf[Double],y_value))
+        case y_value:Long => new E_AnyVal(math.pow(value.asInstanceOf[Double],y_value))
+        case y_value:Float => new E_AnyVal(math.pow(value.asInstanceOf[Double],y_value))
+        case y_value:Double => new E_AnyVal(math.pow(value.asInstanceOf[Double],y_value))
+        case y_value:Char => new E_AnyVal(math.pow(value.asInstanceOf[Double],y_value))
+      }
+    }
+    //For Char
+    else if (value.isInstanceOf[Char]){
+      var y_value:AnyVal = y.value
+      y_value match{
+        case y_value:Int => new E_AnyVal(math.pow(value.asInstanceOf[Char],y_value))
+        case y_value:Long => new E_AnyVal(math.pow(value.asInstanceOf[Char],y_value))
+        case y_value:Float => new E_AnyVal(math.pow(value.asInstanceOf[Char],y_value))
+        case y_value:Double => new E_AnyVal(math.pow(value.asInstanceOf[Char],y_value))
+        case y_value:Char => new E_AnyVal(math.pow(value.asInstanceOf[Char],y_value))
+      }
+    }
+    else new E_AnyVal(-1)
+  }
+
+  
+
 
 }
 
@@ -867,6 +942,12 @@ object printVal{
     else if (x.isInstanceOf[NaN]) println("NaN")
     else println("Error")
   }
+
+  //def main(args: Array[String]): Unit = {
+  //  var a:Char = '1'
+  //  var E_a = new E_AnyVal(a)
+  //  printVal(E_a.pow(new E_AnyVal(2)))
+  //}
 
 }
 
