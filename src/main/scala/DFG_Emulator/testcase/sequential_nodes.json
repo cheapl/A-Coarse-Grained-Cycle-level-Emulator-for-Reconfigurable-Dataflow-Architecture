@@ -69,9 +69,7 @@
     },
 
     {
-
         "ID": 4,
-
         "input_port_length": 1,
         "output_port_length": 1,
         "input_port_width": "1",
