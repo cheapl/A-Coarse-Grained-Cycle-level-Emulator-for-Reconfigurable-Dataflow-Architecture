@@ -1,3 +1,5 @@
+package etype
+
 import scala.math._
 
 class E_AnyVal(in_value: AnyVal){
@@ -937,17 +939,11 @@ object printVal{
     else if (x.value.isInstanceOf[Long]) println("Long:"+x.value.asInstanceOf[Long])
     else if (x.value.isInstanceOf[Float]) println("Float:"+x.value.asInstanceOf[Float])
     else if (x.value.isInstanceOf[Double]) println("Double:"+x.value.asInstanceOf[Double])
-    else if (x.value.isInstanceOf[Char]) println("Double:"+x.value.asInstanceOf[Char])
+    else if (x.value.isInstanceOf[Char]) println("Char:"+x.value.asInstanceOf[Char])
     else if (x.value.isInstanceOf[Boolean]) println("Boolean:"+x.value.asInstanceOf[Boolean])
     else if (x.isInstanceOf[NaN]) println("NaN")
     else println("Error")
   }
-
-  //def main(args: Array[String]): Unit = {
-  //  var a:Char = '1'
-  //  var E_a = new E_AnyVal(a)
-  //  printVal(E_a.pow(new E_AnyVal(2)))
-  //}
 
 }
 
