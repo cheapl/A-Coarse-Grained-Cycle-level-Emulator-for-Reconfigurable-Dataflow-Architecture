@@ -1,4 +1,4 @@
-package etype
+//package etype
 
 import scala.math._
 
