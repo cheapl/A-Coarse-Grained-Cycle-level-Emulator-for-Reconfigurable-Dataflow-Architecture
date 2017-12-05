@@ -2,8 +2,6 @@ import scala.io.Source
 import scala.util.parsing.json.JSON
 import scala.collection.mutable.ArrayBuffer
 
-//package parser
-
 class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_input_port:Int){
   var source:Int = Source
   var destination:Int = Destination 
