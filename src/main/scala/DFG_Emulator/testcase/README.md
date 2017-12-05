@@ -20,3 +20,12 @@
 * Multiply two input together and add to PU's local storage.
 * It will take 7 time units.
 * 5 sources and 1 sink. When sink's output is not NaN for first time, it indicates the termination of multiplication.
+
+## Quadratic formula
+
+* 11 PUs
+* 12 edges
+* Computing both solution of quadratic formula
+* If in sequential way, it will take 22 steps. But using this DFG, it will take 6 steps.
+
+![Alt text](quadratic.png)

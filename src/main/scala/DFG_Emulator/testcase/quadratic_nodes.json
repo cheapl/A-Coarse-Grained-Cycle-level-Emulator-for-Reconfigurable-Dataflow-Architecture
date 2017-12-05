@@ -4,41 +4,41 @@
  
      {
          "ID": 1,
-         "input_port_length": 2,
+         "input_port_length": 1,
          "output_port_length": 2,
          "input_port_width": "1",
          "output_port_width": "1",
          "register_length": 1,
          "register_width": "1",
-         "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
+         "code":"Output(0) = Input(0) * (new E_AnyVal(-1));Output(1) = Input(0) * (new E_AnyVal(-1))",
          "PU_type":1,
-         "Data_Source_Index":"0,3"
+         "Data_Source_Index":"0"
      },
  
      {
          "ID": 2,
-         "input_port_length": 2,
-         "output_port_length": 2,
+         "input_port_length": 1,
+         "output_port_length": 1,
          "input_port_width": "1",
          "output_port_width": "1",
          "register_length": 1,
          "register_width": "1",
-         "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
+         "code":"Output(0) = Input(0).pow(new E_AnyVal(2))",
          "PU_type":1,
-         "Data_Source_Index":"-1,4"
+         "Data_Source_Index":"0"
      },
  
      {
          "ID": 3,
          "input_port_length": 2,
-         "output_port_length": 2,
+         "output_port_length": 1,
          "input_port_width": "1",
          "output_port_width": "1",
          "register_length": 1,
          "register_width": "1",
-         "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
+         "code":"Output(0) = Input(0) * Input(1)",
          "PU_type":1,
-         "Data_Source_Index":"-1,5"
+         "Data_Source_Index":"2,3"
      },
 
      {
@@ -49,59 +49,59 @@
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
+        "code":"Output(0) = Input(0) * Input(1);Output(1) = Input(0) * Input(1)",
         "PU_type":1,
-        "Data_Source_Index":"1,-1"
+        "Data_Source_Index":"3,4"
     },
 
     {
         "ID": 5,
         "input_port_length": 2,
-        "output_port_length": 2,
+        "output_port_length": 1,
         "input_port_width": "1",
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
-        "PU_type":0,
-        "Data_Source_Index":"-1,-1"
+        "code":"Output(0) = Input(0) * Input(1)",
+        "PU_type":1,
+        "Data_Source_Index":"1,-1"
     },
 
     {
         "ID": 6,
         "input_port_length": 2,
-        "output_port_length": 2,
+        "output_port_length": 1,
         "input_port_width": "1",
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
+        "code":"Output(0) = Input(0) - Input(1)",
         "PU_type":0,
         "Data_Source_Index":"-1,-1"
     },
 
     {
         "ID": 7,
-        "input_port_length": 2,
+        "input_port_length": 1,
         "output_port_length": 2,
         "input_port_width": "1",
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
-        "PU_type":1,
-        "Data_Source_Index":"2,-1"
+        "code":"Output(0) = Input(0).sqrt();Output(1) = Input(0).sqrt()",
+        "PU_type":0,
+        "Data_Source_Index":"-1"
     },
 
     {
         "ID": 8,
         "input_port_length": 2,
-        "output_port_length": 2,
+        "output_port_length": 1,
         "input_port_width": "1",
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0))",
+        "code":"Output(0) = Input(0) + Input(1)",
         "PU_type":0,
         "Data_Source_Index":"-1,-1"
     },
@@ -109,12 +109,38 @@
     {
         "ID": 9,
         "input_port_length": 2,
-        "output_port_length": 2,
+        "output_port_length": 1,
         "input_port_width": "1",
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Local(0) = Local(0) + Input(0)*Input(1);Output(0) = Input(0);Output(1) = Input(1);printVal.printVal(Local(0)); if(!Output(1).isInstanceOf[NaN]) exit()",
+        "code":"Output(0) = Input(0) / Input(1); if(!Output(0).isInstanceOf[NaN]) printVal(Output(0))",
+        "PU_type":-1,
+        "Data_Source_Index":"-1,-1"
+    },
+
+    {
+        "ID": 10,
+        "input_port_length": 2,
+        "output_port_length": 1,
+        "input_port_width": "1",
+        "output_port_width": "1",
+        "register_length": 1,
+        "register_width": "1",
+        "code":"Output(0) = Input(0) - Input(1)",
+        "PU_type":0,
+        "Data_Source_Index":"-1,-1"
+    },
+
+    {
+        "ID": 11,
+        "input_port_length": 2,
+        "output_port_length": 1,
+        "input_port_width": "1",
+        "output_port_width": "1",
+        "register_length": 1,
+        "register_width": "1",
+        "code":"Output(0) = Input(0) / Input(1); if(!Output(0).isInstanceOf[NaN]) printVal(Output(0))",
         "PU_type":-1,
         "Data_Source_Index":"-1,-1"
     }

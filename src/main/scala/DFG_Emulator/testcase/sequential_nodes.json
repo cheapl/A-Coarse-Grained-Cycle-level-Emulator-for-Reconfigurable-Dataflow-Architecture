@@ -10,7 +10,9 @@
          "output_port_width": "1",
          "register_length": 1,
          "register_width": "1",
-         "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal(Output(0))"
+         "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal.printVal(Output(0))",
+         "PU_type":1,
+         "Data_Source_Index":"0"
      },
  
      {
@@ -21,7 +23,9 @@
          "output_port_width": "1",
          "register_length": 1,
          "register_width": "1",
-         "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal(Output(0))"
+         "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal.printVal(Output(0))",
+         "PU_type":0,
+         "Data_Source_Index":"-1"
      },
  
      {
@@ -32,7 +36,9 @@
          "output_port_width": "1",
          "register_length": 1,
          "register_width": "1",
-         "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal(Output(0))"
+         "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal.printVal(Output(0))",
+         "PU_type":0,
+         "Data_Source_Index":"-1"
      },
 
      {
@@ -43,7 +49,9 @@
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal(Output(0))"
+        "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal.printVal(Output(0))",
+        "PU_type":0,
+        "Data_Source_Index":"-1"
     },
 
     {
@@ -54,7 +62,9 @@
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal(Output(0))"
+        "code":"Output(0) = Input(0) + new E_AnyVal(1); printVal.printVal(Output(0))",
+        "PU_type":-1,
+        "Data_Source_Index":"-1"
     }
 
     ]
