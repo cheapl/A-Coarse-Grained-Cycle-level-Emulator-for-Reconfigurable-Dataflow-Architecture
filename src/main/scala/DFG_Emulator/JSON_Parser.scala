@@ -12,7 +12,7 @@ class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_inpu
   var destination_input_port:Int = Destination_input_port 
 }
 
-class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_Source_Index:Array[Int]){
+class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_Source_Index:Array[Int], Output_port_delay:Array[Int]){
   var ID:Int = id 
   var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)))
   var input_port_length:Int = Input_port_length 
@@ -25,6 +25,7 @@ class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port
   var edgesList:Array[edge] = EdgesList
   var PU_type:Int = pu_type
   var Data_Source_Index:Array[Int] = data_Source_Index
+  var output_port_delay:Array[Int] = Output_port_delay
 }
 
 
@@ -72,8 +73,9 @@ object parser{
       S(code) = node("code")
       D(pu_type) = node("PU_type")
       S(data_Source_Index) = node("Data_Source_Index")
+      S(output_port_delay) = node("output_port_delay")
     } yield {
-      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index)
+      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index, output_port_delay)
     }
 
     val edgesList = for {
@@ -107,11 +109,12 @@ object parser{
       for (Edge <- edgesArray){
         if (Edge.source == id) counter += 1
       }
+
       var EdgesList = new Array[edge](counter)
       for (Edge <- edgesArray){
         if (Edge.source == id) {EdgesList(j) =  Edge; j+=1}
       }
-      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10))
+      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11))
 
       k+=1
     }
