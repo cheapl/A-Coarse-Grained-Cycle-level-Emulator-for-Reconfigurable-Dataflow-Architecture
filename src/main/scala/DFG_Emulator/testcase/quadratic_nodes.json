@@ -114,7 +114,7 @@
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Output(0) = Input(0) / Input(1); if(!Output(0).isInstanceOf[NaN]) printVal(Output(0))",
+        "code":"Output(0) = Input(0) / Input(1); if(!Output(0).isInstanceOf[NaN]) printVal.printVal(Output(0))",
         "PU_type":-1,
         "Data_Source_Index":"-1,-1"
     },
@@ -140,7 +140,7 @@
         "output_port_width": "1",
         "register_length": 1,
         "register_width": "1",
-        "code":"Output(0) = Input(0) / Input(1); if(!Output(0).isInstanceOf[NaN]) printVal(Output(0))",
+        "code":"Output(0) = Input(0) / Input(1); if(!Output(0).isInstanceOf[NaN]) printVal.printVal(Output(0))",
         "PU_type":-1,
         "Data_Source_Index":"-1,-1"
     }
