@@ -7,16 +7,7 @@ trait Emulator_Message
 
 }
 
-
-
-
-
 case object Synchronize extends Emulator_Message
-
-
-
-
-
 case object Initialize
 
 
