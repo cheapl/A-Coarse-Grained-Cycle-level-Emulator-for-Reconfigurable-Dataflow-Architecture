@@ -22,7 +22,7 @@ class UB(val ID: Int,
 				var source_PU = context.actorSelection("../PU_" + source.ID.toString())
 				for(i ← 0 until source.input_port_length)
 					{
-						if (source.input_port_width(i) != -1)		source_PU ! new Data_message(Array(data(source.Data_Source_Index(i))(cycles)), i)
+						if (source.Data_Source_Index(i) != -1)		source_PU ! new Data_message(Array(data(source.Data_Source_Index(i))(cycles)), i)
 						//for (j ← 0 until source.input_port_width(i))
 					}
 			}

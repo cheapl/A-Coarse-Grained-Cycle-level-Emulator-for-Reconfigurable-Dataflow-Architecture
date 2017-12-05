@@ -28,6 +28,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 	val output_port_width: Array[Int] = arg_pack.output_port_width
 	val register_length: Int = arg_pack.register_length
 	val register_width: Array[Int] = arg_pack.register_width
+	val Output_Port_Delay: Array[Int] = arg_pack.output_port_delay
 	val code: String = arg_pack.code
 	val input_ports: Array[IOPort] = new Array[IOPort](input_port_length)
 	val output_ports: Array[IOPort] = new Array[IOPort](output_port_length)
@@ -47,7 +48,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 	for(i ← 0 until output_port_length)
 		{
 			output_ports(i) = new IOPort(output_port_width(i))
-			output_ports(i).write(Array.fill[Emulator_Numerics]((period - 1) * output_port_width(i))(new NaN))
+			output_ports(i).write(Array.fill[Emulator_Numerics]((period - 1) * output_port_width(i) + Output_Port_Delay(i))(new NaN))
 			output_data(i) = new Array[Emulator_Numerics](output_port_width(i))
 			output_buffer(i) = new Array[Emulator_Numerics](output_port_width(i))
 		}
