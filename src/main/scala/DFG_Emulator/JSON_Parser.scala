@@ -1,3 +1,4 @@
+
 package  DFG_Emulator
 
 import scala.io.Source
@@ -15,14 +16,13 @@ object D extends CC[Double]
 
 
 object DFG_Configuration_Parser{
-
   def strToList(Str:String) : Array[Int] = {
     if(Str.length > 0) Str.split(",").map(x => x.toInt) 
     else new Array[Int](0)
   }
 
-  def parse(fileNameNode: String, fileNameEdge: String): (Array[PU_Arg_Pack],Array[PU_Arg_Pack]) = {
 
+  def parse(fileNameNode: String, fileNameEdge: String): (Array[PU_Arg_Pack],Array[PU_Arg_Pack]) = {
     var nodesStr:String = ""
     var edgesStr:String = ""
 
@@ -94,6 +94,7 @@ object DFG_Configuration_Parser{
     }
 
     //println(source_counter)
+
 
     var Source_arg_packs = new Array[PU_Arg_Pack](source_counter)
     var n:Int = 0
@@ -219,3 +220,4 @@ object calTime{
 //  }
 //
 //}
+

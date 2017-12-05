@@ -15,7 +15,6 @@
             "source_output_port":0,
             "destination_input_port":0
         },
-
         {
             "source":2,
             "destination":3,
@@ -26,6 +25,13 @@
         {
             "source":3,
             "destination":4,
+            "source_output_port":0,
+            "destination_input_port":0
+        },
+
+        {
+            "source":4,
+            "destination":5,
             "source_output_port":0,
             "destination_input_port":0
         }

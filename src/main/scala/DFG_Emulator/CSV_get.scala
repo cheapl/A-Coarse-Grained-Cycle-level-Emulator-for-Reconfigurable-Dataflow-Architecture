@@ -1,3 +1,4 @@
+
 package  DFG_Emulator
 import scala.io.Source 
 import scala.collection.mutable.ArrayBuffer
@@ -23,6 +24,7 @@ object csv{
   }
 
   def get(fileName: String):Array[Array[Emulator_Numerics]] = {
+
     
     var StrArray = new ArrayBuffer[ArrayBuffer[String]]()
 
@@ -35,10 +37,12 @@ object csv{
     }
     file.close
 
+
     var E_AnyValArray = new ArrayBuffer[ArrayBuffer[Emulator_Numerics]]()
 
     for (line <- StrArray) {
       var lineArray = new ArrayBuffer[Emulator_Numerics]()
+
       for (ele <- line) {
         lineArray += E_New(strClean(ele))
       }
@@ -46,10 +50,12 @@ object csv{
     }
 
     var i:Int = 0
+
     var res = new Array[Array[Emulator_Numerics]](E_AnyValArray.length)
     while(i < E_AnyValArray.length){
       var j:Int = 0
       var lineArray = new Array[Emulator_Numerics](E_AnyValArray(i).length)
+
       while(j < E_AnyValArray(i).length){
         lineArray(j) = E_AnyValArray(i)(j)
         j += 1
@@ -72,3 +78,4 @@ object csv{
 //
 //  }
 //}
+
