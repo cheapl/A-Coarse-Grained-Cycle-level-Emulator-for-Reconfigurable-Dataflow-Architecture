@@ -150,6 +150,10 @@ object calTime{
         if(source(i+1) == '=') {res += "==";i+=2}
         else i+=1
       }
+      else if(source(i) == '-'){
+        if(source(i-1) != '(') {res += "-";i+=1}
+        else {i+=1}
+      }
       else if(source(i) == '!'){
         if(source(i+1) == '=') {res += "!=";i+=2}
         else {res += "!";i+=1}
