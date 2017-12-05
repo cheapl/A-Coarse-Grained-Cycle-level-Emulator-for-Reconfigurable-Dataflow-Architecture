@@ -10,6 +10,8 @@ class E_AnyVal(in_value: AnyVal){
   def +(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -71,6 +73,8 @@ class E_AnyVal(in_value: AnyVal){
   def -(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -132,6 +136,8 @@ class E_AnyVal(in_value: AnyVal){
   def *(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -193,6 +199,8 @@ class E_AnyVal(in_value: AnyVal){
   def /(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -254,6 +262,8 @@ class E_AnyVal(in_value: AnyVal){
   def %(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -318,18 +328,24 @@ class E_AnyVal(in_value: AnyVal){
   def ==(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     else new E_AnyVal(value == y.value)
   }
 
   def !=(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     else new E_AnyVal(value != y.value)
   }
 
   def >(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -398,6 +414,8 @@ class E_AnyVal(in_value: AnyVal){
   def <(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -466,6 +484,8 @@ class E_AnyVal(in_value: AnyVal){
   def >=(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -534,6 +554,8 @@ class E_AnyVal(in_value: AnyVal){
   def <=(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -605,6 +627,8 @@ class E_AnyVal(in_value: AnyVal){
   def &&(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Boolean
     else if (value.isInstanceOf[Boolean]){
       var y_value:AnyVal = y.value
@@ -618,6 +642,8 @@ class E_AnyVal(in_value: AnyVal){
   def ||(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Boolean
     else if (value.isInstanceOf[Boolean]){
       var y_value:AnyVal = y.value
@@ -630,6 +656,7 @@ class E_AnyVal(in_value: AnyVal){
 
   def unary_!() : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) this
     else if (value.isInstanceOf[Boolean]){
       new E_AnyVal( ! value.asInstanceOf[Boolean])
     }
@@ -642,6 +669,8 @@ class E_AnyVal(in_value: AnyVal){
   def &(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -675,6 +704,8 @@ class E_AnyVal(in_value: AnyVal){
   def |(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -708,6 +739,8 @@ class E_AnyVal(in_value: AnyVal){
   def ^(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -740,6 +773,7 @@ class E_AnyVal(in_value: AnyVal){
 
   def unary_~() : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) this
     else if (value.isInstanceOf[Int]){
       new E_AnyVal( ~ value.asInstanceOf[Int])
     }
@@ -755,6 +789,8 @@ class E_AnyVal(in_value: AnyVal){
   def <<(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -788,6 +824,8 @@ class E_AnyVal(in_value: AnyVal){
   def >>(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -821,6 +859,8 @@ class E_AnyVal(in_value: AnyVal){
   def >>>(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -854,6 +894,7 @@ class E_AnyVal(in_value: AnyVal){
   //pow and sqrt
   def sqrt() : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) this
     else if (value.isInstanceOf[Int])  new E_AnyVal(math.sqrt(value.asInstanceOf[Int]))
     else if (value.isInstanceOf[Long])  new E_AnyVal(math.sqrt(value.asInstanceOf[Long]))
     else if (value.isInstanceOf[Float])  new E_AnyVal(math.sqrt(value.asInstanceOf[Float]))
@@ -865,6 +906,8 @@ class E_AnyVal(in_value: AnyVal){
   def pow(y: E_AnyVal) : E_AnyVal = {
     if (this.isInstanceOf[NaN]) new NaN
     else if (y.isInstanceOf[NaN]) new NaN
+    else if (this.isInstanceOf[Identity]) y
+    else if (y.isInstanceOf[Identity]) this
     //For Int
     else if (value.isInstanceOf[Int]){
       var y_value:AnyVal = y.value
@@ -923,13 +966,12 @@ class E_AnyVal(in_value: AnyVal){
     else new E_AnyVal(-1)
   }
 
-  
-
-
 }
 
 
 class NaN extends E_AnyVal{}
+
+class Identity extends E_AnyVal{}
 
 
 object printVal{
@@ -942,6 +984,7 @@ object printVal{
     else if (x.value.isInstanceOf[Char]) println("Char:"+x.value.asInstanceOf[Char])
     else if (x.value.isInstanceOf[Boolean]) println("Boolean:"+x.value.asInstanceOf[Boolean])
     else if (x.isInstanceOf[NaN]) println("NaN")
+    else if (x.isInstanceOf[Identity]) println("Identity")
     else println("Error")
   }
 

@@ -1,6 +1,6 @@
 import scala.io.Source 
 import scala.collection.mutable.ArrayBuffer
-//import etype._
+import etype._
 
 object csv{
 
@@ -11,6 +11,7 @@ object csv{
 
   def E_New(Str: String):E_AnyVal = { 
     if (Str == "NaN") new NaN
+    else if (Str == "Identity") new Identity
     else if(Str.split(":")(1) == "Int") new E_AnyVal(Str.split(":")(0).toInt)
     else if(Str.split(":")(1) == "Long") new E_AnyVal(Str.split(":")(0).toLong)
     else if(Str.split(":")(1) == "Float") new E_AnyVal(Str.split(":")(0).toFloat)
