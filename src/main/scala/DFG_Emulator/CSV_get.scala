@@ -1,6 +1,6 @@
 import scala.io.Source 
 import scala.collection.mutable.ArrayBuffer
-import etype._
+//import etype._
 
 object csv{
 
