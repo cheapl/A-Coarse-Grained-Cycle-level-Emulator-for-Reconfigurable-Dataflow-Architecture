@@ -1,9 +1,32 @@
 
 package  DFG_Emulator
 
-import scala.io.Source
+import scala.io.Source 
 import scala.util.parsing.json.JSON
 import scala.collection.mutable.ArrayBuffer
+
+class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_input_port:Int){
+  var source:Int = Source
+  var destination:Int = Destination 
+  var source_output_port:Int = Source_output_port 
+  var destination_input_port:Int = Destination_input_port 
+}
+
+class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_Source_Index:Array[Int]){
+  var ID:Int = id 
+  var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)))
+  var input_port_length:Int = Input_port_length 
+  var output_port_length:Int = Output_port_length 
+  var input_port_width:Array[Int] = Input_port_width
+  var output_port_width:Array[Int] = Output_port_width
+  var register_length:Int = Register_length
+  var register_width:Array[Int] = Register_width
+  var code:String = Code
+  var edgesList:Array[edge] = EdgesList
+  var PU_type:Int = pu_type
+  var Data_Source_Index:Array[Int] = data_Source_Index
+}
+
 
 class CC[T]{ 
   def unapply(a:Any):Option[T] = Some(a.asInstanceOf[T]) 
@@ -15,14 +38,15 @@ object S extends CC[String]
 object D extends CC[Double]
 
 
-object DFG_Configuration_Parser{
+object parser{
+
   def strToList(Str:String) : Array[Int] = {
     if(Str.length > 0) Str.split(",").map(x => x.toInt) 
     else new Array[Int](0)
   }
 
+  def parser(fileNameNode: String, fileNameEdge: String): (Array[arg_pack],Array[arg_pack]) = {
 
-  def parse(fileNameNode: String, fileNameEdge: String): (Array[PU_Arg_Pack],Array[PU_Arg_Pack]) = {
     var nodesStr:String = ""
     var edgesStr:String = ""
 
@@ -52,7 +76,7 @@ object DFG_Configuration_Parser{
       (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index)
     }
 
-    val edges_list = for {
+    val edgesList = for {
       Some(M(map)) <- List(JSON.parseFull(edgesStr))
       L(edges) = map("edges")
       M(edge) <- edges
@@ -65,14 +89,14 @@ object DFG_Configuration_Parser{
     }
 
     
-    var edgesArray = new Array[edge](edges_list.length)
+    var edgesArray = new Array[edge](edgesList.length)
     var i:Int = 0
-    while (i < edges_list.length){
-      edgesArray(i) = new edge(edges_list(i)._1.toInt, edges_list(i)._2.toInt, edges_list(i)._3.toInt, edges_list(i)._4.toInt)
+    while (i < edgesList.length){
+      edgesArray(i) = new edge(edgesList(i)._1.toInt, edgesList(i)._2.toInt, edgesList(i)._3.toInt, edgesList(i)._4.toInt)
       i+=1
     }
 
-    var Arg_packs = new Array[PU_Arg_Pack](nodesList.length)
+    var Arg_packs = new Array[arg_pack](nodesList.length)
     var source_counter:Int = 0
     var k:Int = 0
     while (k < nodesList.length) {
@@ -80,23 +104,19 @@ object DFG_Configuration_Parser{
       var id:Int = nodesList(k)._1.toInt
       var counter:Int = 0
       var j:Int = 0
-      for (edg <- edgesArray){
-        if (edg.source == id) counter += 1
+      for (Edge <- edgesArray){
+        if (Edge.source == id) counter += 1
       }
-      //println(counter)
       var EdgesList = new Array[edge](counter)
-      for (edg <- edgesArray){
-        if (edg.source == id) {EdgesList(j) =  edg; j+=1}
+      for (Edge <- edgesArray){
+        if (Edge.source == id) {EdgesList(j) =  Edge; j+=1}
       }
-      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10))
+      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10))
 
       k+=1
     }
 
-    //println(source_counter)
-
-
-    var Source_arg_packs = new Array[PU_Arg_Pack](source_counter)
+    var Source_arg_packs = new Array[arg_pack](source_counter)
     var n:Int = 0
     for (arg <- Arg_packs){
       if(arg.PU_type == 1){
@@ -104,11 +124,8 @@ object DFG_Configuration_Parser{
         n += 1
       }
     }
-
     (Arg_packs, Source_arg_packs)
-  
   }
-
 }
 
 
@@ -126,7 +143,6 @@ object calTime{
     var res = new ArrayBuffer[String]()
     var i:Int = 0
     while (i < source.length){
-      //println(i)
       if(source(i) == '='){
         if(source(i+1) == '=') {res += "==";i+=2}
         else i+=1
@@ -154,6 +170,14 @@ object calTime{
         if(source(i+1) == '|') {res += "||";i+=2}
         else {res += "|";i+=1}
       }
+      else if(source(i) == 's'){
+        if(source(i+1) == 'q' && source(i+2) == 'r' && source(i+3) == 't') {res += "sqrt";i+=4}
+        else {res += "s";i+=1}
+      }
+      else if(source(i) == 'p'){
+        if(source(i+1) == 'o' && source(i+2) == 'w') {res += "pow";i+=3}
+        else {res += "p";i+=1}
+      }
       else {res += source(i).toString;i+=1}
     }
     res
@@ -162,7 +186,6 @@ object calTime{
   def calTime(code: ArrayBuffer[String]) : Int = {
     var res:Int = 0
     for (ele <- code) {
-      //println(ele)
       ele match{
         case "+" => res += 1;
         case "-" => res += 1;
@@ -184,13 +207,13 @@ object calTime{
         case "~" => res += 1;
         case "<<" => res += 1;
         case ">>" => res += 1;
-        case ">>>" => res += 1;
+        case "sqrt" => res += 1;
+        case "pow" => res += 1;
         case ele:String => res += 0;
       }
     }
     res
   } 
-
 }
 
 
