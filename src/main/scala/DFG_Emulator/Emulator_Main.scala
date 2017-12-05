@@ -1,13 +1,36 @@
  package DFG_Emulator
 
+ import DFG_Emulator.EC.Emulation_Start
  import akka.actor.{ActorRef, ActorSystem}
- import scala.io.StdIn
 
+ import scala.io.StdIn
+ import scala.tools.nsc.interpreter.IMain
+ import scala.tools.nsc.Settings
+
+ class Fuck
+ {
+	 val value = 14
+ }
  object Emulator_Main
  {
  	def main(args: Array[String]): Unit =
  	{
-
+		//val s = new Settings
+		//s.usejavacp.value = true
+		//var i = new IMain(s)
+		//var a = Array(new Fuck,new Fuck,new Fuck)
+		//var b = new Array[Fuck](3)
+		//i.beQuietDuring(Unit)
+		//({
+		//	i.interpret("import DFG_Emulator.Fuck")
+		//	i.bind("input", "Array[DFG_Emulator.Fuck]", a)
+		//	i.bind("output", "Array[DFG_Emulator.Fuck]", b)
+		//
+		//	i.interpret("for (i <- 0 until 3) {output(i) = input(i)}")
+		//	i.interpret("val f = new DFG_Emulator.Fuck")
+		//	i.interpret("println(f.value)")
+		//})
+		//println(b.mkString(" "))
  		 //def print_arg_pack(res: Array[PU_Arg_Pack], index: Int): Unit =
  		 //{
  		 //	println("ID:"+res(index).ID)
@@ -38,7 +61,9 @@
  			for (i ← 0 until num_of_PUs)
 				{
 					PU_Actors(i) = emulator.actorOf(PU.props(PUs(i), ec), "PU_" + PUs(i).ID.toString())
+					PU_Actors(i) ! Initialize
 				}
+
 			//val children_list: Array[Array[ActorRef]] = new Array[Array[ActorRef]](num_of_PUs)
 			//for (i ← 0 until num_of_PUs)
 			//{

@@ -1,8 +1,9 @@
 package DFG_Emulator
 
-import DFG_Emulator.EC.Local_Cycle_Finished
-import DFG_Emulator.PU.{Data_message}
+import DFG_Emulator.EC.{Local_Cycle_Finished, Register_PU}
+import DFG_Emulator.PU.Data_message
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+
 import scala.tools.nsc.interpreter.IMain
 import scala.tools.nsc.Settings
 
@@ -16,8 +17,9 @@ object PU
 }
 
 class PU(val arg_pack: PU_Arg_Pack,
-				 val EC: ActorRef) extends Actor with ActorLogging with Clocked_Components
+				 val ec: ActorRef) extends Actor with ActorLogging with Clocked_Components
 {
+
 	val ID: Int = arg_pack.ID
 	val period: Int = arg_pack.period
 	val input_port_length: Int = arg_pack.input_port_length
@@ -45,7 +47,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 	for(i ← 0 until output_port_length)
 		{
 			output_ports(i) = new IOPort(output_port_width(i))
-			output_ports(i).write(Array.fill[Emulator_Numerics](period * output_port_width(i))(new NaN))
+			output_ports(i).write(Array.fill[Emulator_Numerics]((period - 1) * output_port_width(i))(new NaN))
 			output_data(i) = new Array[Emulator_Numerics](output_port_width(i))
 			output_buffer(i) = new Array[Emulator_Numerics](output_port_width(i))
 		}
@@ -55,20 +57,24 @@ class PU(val arg_pack: PU_Arg_Pack,
 	def invoke(): Unit =
 	{
 		for(i ← 0 until input_port_length)	input_ports(i).read(input_data(i))
-
 		val settings = new Settings()
 		settings.usejavacp.value = true
 		val executer = new IMain(settings)
-		executer.beQuietDuring(Unit)
-		(
+		executer.beQuietDuring
 			{
-				executer.interpret("import Emulator_Numerics")
-				for (i ← 0 until input_port_length)		executer.bind("Input(" + i + ")", "Array[Emulator_Numerics]", input_data(i))
-				for (i ← 0 until output_port_length)	executer.bind("Output(" + i + ")", "Array[Emulator_Numerics]", output_data(i))
-				for (i ← 0 until register_length)	executer.bind("Register(" + i + ")", "Array[Emulator_Numerics]", registers(i))
+				executer.interpret("import DFG_Emulator.Emulator_Numerics")
+				executer.interpret("import DFG_Emulator.NaN")
+				executer.interpret("import DFG_Emulator.Identity")
+				executer.interpret("import DFG_Emulator.printVal")
+				executer.bind("id", "Int", ID)
+				//for (i ← 0 until input_port_length)		executer.bind("Input(" + i + ")", "Array[Emulator_Numerics]", input_data(i))
+				//for (i ← 0 until output_port_length)	executer.bind("Output(" + i + ")", "Array[Emulator_Numerics]", output_data(i))
+				//for (i ← 0 until register_length)	executer.bind("Register(" + i + ")", "Array[Emulator_Numerics]", registers(i))
+				executer.bind("Input", "Array[Array[DFG_Emulator.Emulator_Numerics]]", input_data)
+				executer.bind("Output", "Array[Array[DFG_Emulator.Emulator_Numerics]]", output_data)
+				executer.bind("Register", "Array[Array[DFG_Emulator.Emulator_Numerics]]", registers)
 				executer.interpret(code)
 			}
-		)
 		for(i ← 0 until output_port_length)
 			{
 				output_ports(i).write(output_data(i))
@@ -79,13 +85,17 @@ class PU(val arg_pack: PU_Arg_Pack,
 			{
 				context.actorSelection("../PU_" + connection.destination.toString()) ! new Data_message(output_buffer(connection.source_output_port).clone(), connection.destination_input_port)
 			}
-		EC ! Local_Cycle_Finished(ID)
+		ec ! Local_Cycle_Finished(ID)
 	}
 
 	def receive =
 	{
 		//case Set_Children(children) ⇒ Array.copy(children, 0, Children, 0, children.length)
 		case Synchronize ⇒ invoke()
+		case Initialize ⇒ {
+			ec ! Register_PU(ID)
+			println(s"PU ${ID} has period ${period}")
+		}
 		case Data_message(data, receiver_port) ⇒ input_ports(receiver_port).write(data)
 		case "test" ⇒ log.info(s"${ID}received test")
 		case _      ⇒ log.info("received unknown message")

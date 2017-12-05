@@ -1,29 +1,9 @@
-import scala.io.Source 
+
+package  DFG_Emulator
+
+import scala.io.Source
 import scala.util.parsing.json.JSON
 import scala.collection.mutable.ArrayBuffer
-
-class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_input_port:Int){
-  var source:Int = Source
-  var destination:Int = Destination 
-  var source_output_port:Int = Source_output_port 
-  var destination_input_port:Int = Destination_input_port 
-}
-
-class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_Source_Index:Array[Int]){
-  var ID:Int = id 
-  var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)))
-  var input_port_length:Int = Input_port_length 
-  var output_port_length:Int = Output_port_length 
-  var input_port_width:Array[Int] = Input_port_width
-  var output_port_width:Array[Int] = Output_port_width
-  var register_length:Int = Register_length
-  var register_width:Array[Int] = Register_width
-  var code:String = Code
-  var edgesList:Array[edge] = EdgesList
-  var PU_type:Int = pu_type
-  var Data_Source_Index:Array[Int] = data_Source_Index
-}
-
 
 class CC[T]{ 
   def unapply(a:Any):Option[T] = Some(a.asInstanceOf[T]) 
@@ -35,15 +15,14 @@ object S extends CC[String]
 object D extends CC[Double]
 
 
-object parser{
-
+object DFG_Configuration_Parser{
   def strToList(Str:String) : Array[Int] = {
     if(Str.length > 0) Str.split(",").map(x => x.toInt) 
     else new Array[Int](0)
   }
 
-  def parser(fileNameNode: String, fileNameEdge: String): (Array[arg_pack],Array[arg_pack]) = {
 
+  def parse(fileNameNode: String, fileNameEdge: String): (Array[PU_Arg_Pack],Array[PU_Arg_Pack]) = {
     var nodesStr:String = ""
     var edgesStr:String = ""
 
@@ -73,7 +52,7 @@ object parser{
       (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index)
     }
 
-    val edgesList = for {
+    val edges_list = for {
       Some(M(map)) <- List(JSON.parseFull(edgesStr))
       L(edges) = map("edges")
       M(edge) <- edges
@@ -86,14 +65,14 @@ object parser{
     }
 
     
-    var edgesArray = new Array[edge](edgesList.length)
+    var edgesArray = new Array[edge](edges_list.length)
     var i:Int = 0
-    while (i < edgesList.length){
-      edgesArray(i) = new edge(edgesList(i)._1.toInt, edgesList(i)._2.toInt, edgesList(i)._3.toInt, edgesList(i)._4.toInt)
+    while (i < edges_list.length){
+      edgesArray(i) = new edge(edges_list(i)._1.toInt, edges_list(i)._2.toInt, edges_list(i)._3.toInt, edges_list(i)._4.toInt)
       i+=1
     }
 
-    var Arg_packs = new Array[arg_pack](nodesList.length)
+    var Arg_packs = new Array[PU_Arg_Pack](nodesList.length)
     var source_counter:Int = 0
     var k:Int = 0
     while (k < nodesList.length) {
@@ -101,22 +80,23 @@ object parser{
       var id:Int = nodesList(k)._1.toInt
       var counter:Int = 0
       var j:Int = 0
-      for (Edge <- edgesArray){
-        if (Edge.source == id) counter += 1
+      for (edg <- edgesArray){
+        if (edg.source == id) counter += 1
       }
       //println(counter)
       var EdgesList = new Array[edge](counter)
-      for (Edge <- edgesArray){
-        if (Edge.source == id) {EdgesList(j) =  Edge; j+=1}
+      for (edg <- edgesArray){
+        if (edg.source == id) {EdgesList(j) =  edg; j+=1}
       }
-      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10))
+      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10))
 
       k+=1
     }
 
     //println(source_counter)
 
-    var Source_arg_packs = new Array[arg_pack](source_counter)
+
+    var Source_arg_packs = new Array[PU_Arg_Pack](source_counter)
     var n:Int = 0
     for (arg <- Arg_packs){
       if(arg.PU_type == 1){
@@ -214,29 +194,30 @@ object calTime{
 }
 
 
-object main{
+//object main{
+//
+//  def main(args: Array[String]): Unit = {
+//    var res =  parser.parser("testcase/sequential_nodes.json","testcase/sequential_nodes.json")._1
+//    var i:Int = 0
+//    while (i < res.length){
+//      println("ID:"+res(i).ID)
+//      println("period:"+res(i).period)
+//      println("input_port_length:"+res(i).input_port_length)
+//      println("output_port_length:"+res(i).output_port_length)
+//      println("input_port_width(0):"+res(i).input_port_width(0))
+//      println("output_port_width(0):"+res(i).output_port_width(0))
+//      println("register_length:"+res(i).register_length)
+//      println("register_width(0):"+res(i).register_width(0))
+//      println("code:"+res(i).code)
+//      if(res(i).edges_list.length > 0) println("edges_list(0).destination:"+res(i).edges_list(0).destination)
+//      else println("No edge start from this PU")
+//      println("PU_type:"+res(i).PU_type)
+//      if(res(i).PU_type == 1) println("Data_Source_Index(0):"+res(i).Data_Source_Index(0))
+//      else println("This PU not get data from csv file")
+//      println("---------------")
+//      i+=1
+//    }
+//  }
+//
+//}
 
-  def main(args: Array[String]): Unit = {
-    var res =  parser.parser("testcase/sequential_nodes.json","testcase/sequential_nodes.json")._1
-    var i:Int = 0
-    while (i < res.length){
-      println("ID:"+res(i).ID)
-      println("period:"+res(i).period)
-      println("input_port_length:"+res(i).input_port_length)
-      println("output_port_length:"+res(i).output_port_length)
-      println("input_port_width(0):"+res(i).input_port_width(0))
-      println("output_port_width(0):"+res(i).output_port_width(0))
-      println("register_length:"+res(i).register_length)
-      println("register_width(0):"+res(i).register_width(0))
-      println("code:"+res(i).code)
-      if(res(i).edgesList.length > 0) println("edgesList(0).destination:"+res(i).edgesList(0).destination)
-      else println("No edge start from this PU")
-      println("PU_type:"+res(i).PU_type)
-      if(res(i).PU_type == 1) println("Data_Source_Index(0):"+res(i).Data_Source_Index(0))
-      else println("This PU not get data from csv file")
-      println("---------------")
-      i+=1
-    }
-  }
-
-}

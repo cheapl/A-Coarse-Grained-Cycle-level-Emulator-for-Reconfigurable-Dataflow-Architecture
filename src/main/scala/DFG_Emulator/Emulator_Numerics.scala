@@ -976,16 +976,16 @@ class Identity extends Emulator_Numerics{}
 
 object printVal{
 
-  def printVal(x: Emulator_Numerics){
-    if (x.value.isInstanceOf[Int]) println("Int:"+x.value.asInstanceOf[Int])
-    else if (x.value.isInstanceOf[Long]) println("Long:"+x.value.asInstanceOf[Long])
-    else if (x.value.isInstanceOf[Float]) println("Float:"+x.value.asInstanceOf[Float])
-    else if (x.value.isInstanceOf[Double]) println("Double:"+x.value.asInstanceOf[Double])
-    else if (x.value.isInstanceOf[Char]) println("Char:"+x.value.asInstanceOf[Char])
-    else if (x.value.isInstanceOf[Boolean]) println("Boolean:"+x.value.asInstanceOf[Boolean])
-    else if (x.isInstanceOf[NaN]) println("NaN")
-    else if (x.isInstanceOf[Identity]) println("Identity")
-    else println("Error")
+  def printVal(x: Emulator_Numerics, id: Int){
+    if (x.value.isInstanceOf[Int]) println(s"Result from PU${id}: Int:"+x.value.asInstanceOf[Int])
+    else if (x.value.isInstanceOf[Long]) println(s"Result from PU${id}: Long:"+x.value.asInstanceOf[Long])
+    else if (x.value.isInstanceOf[Float]) println(s"Result from PU${id}: Float:"+x.value.asInstanceOf[Float])
+    else if (x.value.isInstanceOf[Double]) println(s"Result from PU${id}: Double:"+x.value.asInstanceOf[Double])
+    else if (x.value.isInstanceOf[Char]) println(s"Result from PU${id}: Char:"+x.value.asInstanceOf[Char])
+    else if (x.value.isInstanceOf[Boolean]) println(s"Result from PU${id}: Boolean:"+x.value.asInstanceOf[Boolean])
+    else if (x.isInstanceOf[NaN]) println(s"Result from PU${id}: NaN")
+    else if (x.isInstanceOf[Identity]) println(s"Result from PU${id}: Identity")
+    else println(s"${id}: Error")
   }
 
 }

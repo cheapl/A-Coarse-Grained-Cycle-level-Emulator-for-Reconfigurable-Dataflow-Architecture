@@ -3,12 +3,18 @@
         "edges":[
     
         {
+            "source":0,
+            "destination":1,
+            "source_output_port":0,
+            "destination_input_port":0
+        },
+    
+        {
             "source":1,
             "destination":2,
             "source_output_port":0,
             "destination_input_port":0
         },
-    
         {
             "source":2,
             "destination":3,
