@@ -15,6 +15,7 @@
  {
  	def main(args: Array[String]): Unit =
  	{
+
 		//val s = new Settings
 		//s.usejavacp.value = true
 		//var i = new IMain(s)
@@ -46,7 +47,7 @@
  		 //}
  		// First Read the DFG Configuration
 
- 		var DFG_Args = DFG_Configuration_Parser.parse("M:\\Codes\\CS210\\Project\\A-Coarse-Grained-Cycle-level-Emulator-for-Reconfigurable-Dataflow-Architecture\\src\\main\\scala\\DFG_Emulator\\testcase\\sequential_nodes.json","M:\\Codes\\CS210\\Project\\A-Coarse-Grained-Cycle-level-Emulator-for-Reconfigurable-Dataflow-Architecture\\src\\main\\scala\\DFG_Emulator\\testcase\\sequential_edges.json")
+ 		var DFG_Args = DFG_Configuration_Parser.parse("M:\\Codes\\CS210\\Project\\A-Coarse-Grained-Cycle-level-Emulator-for-Reconfigurable-Dataflow-Architecture\\src\\main\\scala\\DFG_Emulator\\testcase\\quadratic_nodes.json","M:\\Codes\\CS210\\Project\\A-Coarse-Grained-Cycle-level-Emulator-for-Reconfigurable-Dataflow-Architecture\\src\\main\\scala\\DFG_Emulator\\testcase\\quadratic_edges.json")
  		var PUs = DFG_Args._1
 		var Source_PUs = DFG_Args._2
 		// print_arg_pack(res, 0)
@@ -54,7 +55,7 @@
 		val num_of_PUs = PUs.length
  		try
  		{
-			val data = csv.get("M:\\Codes\\CS210\\Project\\A-Coarse-Grained-Cycle-level-Emulator-for-Reconfigurable-Dataflow-Architecture\\src\\main\\scala\\DFG_Emulator\\testcase\\sequential.csv")
+			val data = csv.get("M:\\Codes\\CS210\\Project\\A-Coarse-Grained-Cycle-level-Emulator-for-Reconfigurable-Dataflow-Architecture\\src\\main\\scala\\DFG_Emulator\\testcase\\quadratic.csv")
 			val ub = emulator.actorOf(UB.props(0, data, Source_PUs), "UB")
  			val ec = emulator.actorOf(EC.props(-1, num_of_PUs, ub), "EC")
 			val PU_Actors: Array[ActorRef] = new Array[ActorRef](num_of_PUs)

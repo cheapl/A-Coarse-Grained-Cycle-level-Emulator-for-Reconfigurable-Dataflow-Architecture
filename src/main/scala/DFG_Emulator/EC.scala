@@ -23,7 +23,7 @@ class EC(val ID: Int,
 	{
 		case Register_PU(id) ⇒
 			{
-				println(s"${id} has registered")
+				//println(s"${id} has registered")
 				PU_list(id) = sender()
 				PU_reg_counter += 1
 				if (PU_reg_counter == num_of_PU)

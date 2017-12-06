@@ -114,7 +114,8 @@ object parser{
       for (Edge <- edgesArray){
         if (Edge.source == id) {EdgesList(j) =  Edge; j+=1}
       }
-      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11))
+
+      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11))
 
       k+=1
     }
@@ -150,11 +151,12 @@ object calTime{
         if(source(i+1) == '=') {res += "==";i+=2}
         else i+=1
       }
-      else if(source(i) == '-'){
-        if(source(i-1) != '(') {res += "-";i+=1}
-        else {i+=1}
-      }
-      else if(source(i) == '!'){
+
+			else if(source(i) == '-'){
+			if(source(i-1) != '(') {res += "-";i+=1}
+			else {i+=1}
+			}
+			else if(source(i) == '!'){
         if(source(i+1) == '=') {res += "!=";i+=2}
         else {res += "!";i+=1}
       }
@@ -177,14 +179,22 @@ object calTime{
         if(source(i+1) == '|') {res += "||";i+=2}
         else {res += "|";i+=1}
       }
-      else if(source(i) == 's'){
-        if(source(i+1) == 'q' && source(i+2) == 'r' && source(i+3) == 't') {res += "sqrt";i+=4}
-        else {res += "s";i+=1}
-      }
-      else if(source(i) == 'p'){
-        if(source(i+1) == 'o' && source(i+2) == 'w') {res += "pow";i+=3}
-        else {res += "p";i+=1}
-      }
+			else if(source(i) == 's'){
+
+				if(source(i+1) == 'q' && source(i+2) == 'r' && source(i+3) == 't') {res += "sqrt";i+=4}
+
+				else {res += "s";i+=1}
+
+			}
+
+			else if(source(i) == 'p'){
+
+				if(source(i+1) == 'o' && source(i+2) == 'w') {res += "pow";i+=3}
+
+				else {res += "p";i+=1}
+
+			}
+
       else {res += source(i).toString;i+=1}
     }
     res
@@ -214,6 +224,7 @@ object calTime{
         case "~" => res += 1;
         case "<<" => res += 1;
         case ">>" => res += 1;
+        case ">>>" => res += 1;
         case "sqrt" => res += 1;
         case "pow" => res += 1;
         case ele:String => res += 0;
