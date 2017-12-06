@@ -3,12 +3,26 @@
         "edges":[
     
         {
+            "source":0,
+            "destination":1,
+            "source_output_port":0,
+            "destination_input_port":0
+        },
+    
+        {
+            "source":0,
+            "destination":3,
+            "source_output_port":1,
+            "destination_input_port":1
+        },
+
+        {
             "source":1,
             "destination":2,
             "source_output_port":0,
             "destination_input_port":0
         },
-    
+
         {
             "source":1,
             "destination":4,
@@ -18,16 +32,16 @@
 
         {
             "source":2,
-            "destination":3,
-            "source_output_port":0,
-            "destination_input_port":0
-        },
-
-        {
-            "source":2,
             "destination":5,
             "source_output_port":1,
             "destination_input_port":1
+        },
+
+        {
+            "source":3,
+            "destination":4,
+            "source_output_port":0,
+            "destination_input_port":0
         },
 
         {
@@ -53,13 +67,6 @@
 
         {
             "source":5,
-            "destination":6,
-            "source_output_port":0,
-            "destination_input_port":0
-        },
-
-        {
-            "source":5,
             "destination":8,
             "source_output_port":1,
             "destination_input_port":1
@@ -67,21 +74,14 @@
 
         {
             "source":6,
-            "destination":9,
-            "source_output_port":1,
-            "destination_input_port":1
-        },
-
-        {
-            "source":7,
-            "destination":8,
+            "destination":7,
             "source_output_port":0,
             "destination_input_port":0
         },
 
         {
-            "source":8,
-            "destination":9,
+            "source":7,
+            "destination":8,
             "source_output_port":0,
             "destination_input_port":0
         }

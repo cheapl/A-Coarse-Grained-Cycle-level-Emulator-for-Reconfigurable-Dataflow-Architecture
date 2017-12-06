@@ -11,38 +11,37 @@ object csv{
     else Str
   }
 
-  def E_New(Str: String):Emulator_Numerics = { 
+  def E_New(Str: String):E_AnyVal = { 
     if (Str == "NaN") new NaN
     else if (Str == "Identity") new Identity
-    else if(Str.split(":")(1) == "Int") new Emulator_Numerics(Str.split(":")(0).toInt)
-    else if(Str.split(":")(1) == "Long") new Emulator_Numerics(Str.split(":")(0).toLong)
-    else if(Str.split(":")(1) == "Float") new Emulator_Numerics(Str.split(":")(0).toFloat)
-    else if(Str.split(":")(1) == "Double") new Emulator_Numerics(Str.split(":")(0).toDouble)
-    else if(Str.split(":")(1) == "Char") new Emulator_Numerics(Str.split(":")(0)(0))
-    else if(Str.split(":")(1) == "Boolean") new Emulator_Numerics(Str.split(":")(0).toBoolean)
-    else new Emulator_Numerics(-1)
+    else if(Str.split(":")(1) == "Int") new E_AnyVal(Str.split(":")(0).toInt)
+    else if(Str.split(":")(1) == "Long") new E_AnyVal(Str.split(":")(0).toLong)
+    else if(Str.split(":")(1) == "Float") new E_AnyVal(Str.split(":")(0).toFloat)
+    else if(Str.split(":")(1) == "Double") new E_AnyVal(Str.split(":")(0).toDouble)
+    else if(Str.split(":")(1) == "Char") new E_AnyVal(Str.split(":")(0)(0))
+    else if(Str.split(":")(1) == "Boolean") new E_AnyVal(Str.split(":")(0).toBoolean)
+    else new E_AnyVal(-1)
   }
 
-  def get(fileName: String):Array[Array[Emulator_Numerics]] = {
-
+  def get(fileName: String):Array[Array[E_AnyVal]] = {
     
     var StrArray = new ArrayBuffer[ArrayBuffer[String]]()
 
     val file=Source.fromFile(fileName)
     for(line <- file.getLines) {
-      var lineList = line.split(",")
-      var lineArray = new ArrayBuffer[String]
-      for (ele <- lineList) lineArray += ele
-      StrArray += lineArray
+      if (line.length > 0){
+        var lineList = line.split(",")
+        var lineArray = new ArrayBuffer[String]
+        for (ele <- lineList) lineArray += ele
+        StrArray += lineArray
+      }
     }
     file.close
 
-
-    var E_AnyValArray = new ArrayBuffer[ArrayBuffer[Emulator_Numerics]]()
+    var E_AnyValArray = new ArrayBuffer[ArrayBuffer[E_AnyVal]]()
 
     for (line <- StrArray) {
-      var lineArray = new ArrayBuffer[Emulator_Numerics]()
-
+      var lineArray = new ArrayBuffer[E_AnyVal]()
       for (ele <- line) {
         lineArray += E_New(strClean(ele))
       }
@@ -50,12 +49,10 @@ object csv{
     }
 
     var i:Int = 0
-
-    var res = new Array[Array[Emulator_Numerics]](E_AnyValArray.length)
+    var res = new Array[Array[E_AnyVal]](E_AnyValArray.length)
     while(i < E_AnyValArray.length){
       var j:Int = 0
-      var lineArray = new Array[Emulator_Numerics](E_AnyValArray(i).length)
-
+      var lineArray = new Array[E_AnyVal](E_AnyValArray(i).length)
       while(j < E_AnyValArray(i).length){
         lineArray(j) = E_AnyValArray(i)(j)
         j += 1
