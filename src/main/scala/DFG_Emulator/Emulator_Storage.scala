@@ -24,3 +24,9 @@ class Register(val size: Int) extends Emulator_Storage
 {
 	val register = new Array[Emulator_Numerics](size)
 }
+
+class Accumulator(val size: Int) extends Emulator_Storage
+{
+	val accumulator = Array.fill[Emulator_Numerics](size)(new Emulator_Numerics(0))
+	def accumulate(value: Emulator_Numerics, index: Int = 0) : Unit =	accumulator(index) += value
+}

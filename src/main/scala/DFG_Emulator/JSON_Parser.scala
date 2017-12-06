@@ -49,8 +49,10 @@ object DFG_Configuration_Parser{
       D(pu_type) = node("PU_type")
       S(data_Source_Index) = node("Data_Source_Index")
       S(output_port_delay) = node("output_port_delay")
+      D(accumulator_length) = node("accumulator_length")
+      S(accumulator_width) = node("accumulator_width")
     } yield {
-      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index, output_port_delay)
+      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index, output_port_delay, accumulator_length, accumulator_width)
     }
 
     val edges_list = for {
@@ -89,7 +91,7 @@ object DFG_Configuration_Parser{
       for (edg <- edgesArray){
         if (edg.source == id) {EdgesList(j) =  edg; j+=1}
       }
-      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11))
+      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11), nodesList(k)._12.toInt, strToList(nodesList(k)._13))
 
       k+=1
     }

@@ -28,12 +28,15 @@ class PU(val arg_pack: PU_Arg_Pack,
 	val output_port_width: Array[Int] = arg_pack.output_port_width
 	val register_length: Int = arg_pack.register_length
 	val register_width: Array[Int] = arg_pack.register_width
+	val accumulator_length: Int = arg_pack.accumulator_length
+	val accumulator_width: Array[Int] = arg_pack.accumulator_width
 	val Output_Port_Delay: Array[Int] = arg_pack.output_port_delay
 	val code: String = arg_pack.code
 	val input_ports: Array[IOPort] = new Array[IOPort](input_port_length)
 	val output_ports: Array[IOPort] = new Array[IOPort](output_port_length)
 	val connections: Array[edge] = arg_pack.edges_list
 	val registers: Array[Array[Emulator_Numerics]] = new Array[Array[Emulator_Numerics]](register_length)
+	val accumulators: Array[Accumulator] = new Array[Accumulator](accumulator_length)
 	val input_data: Array[Array[Emulator_Numerics]] = new Array[Array[Emulator_Numerics]](input_port_length)
 	val output_data: Array[Array[Emulator_Numerics]] = new Array[Array[Emulator_Numerics]](output_port_length)
 	val output_buffer: Array[Array[Emulator_Numerics]] = new Array[Array[Emulator_Numerics]](output_port_length)
@@ -42,18 +45,19 @@ class PU(val arg_pack: PU_Arg_Pack,
 	for(i ← 0 until input_port_length)
 		{
 			input_ports(i) = new IOPort(input_port_width(i))
-			input_ports(i).write(Array.fill[Emulator_Numerics](input_port_width(i))(new NaN))
+			input_ports(i).write(Array.fill[Emulator_Numerics](input_port_width(i))(new Identity))
 			input_data(i) = new Array[Emulator_Numerics](input_port_width(i))
 		}
 	for(i ← 0 until output_port_length)
 		{
 			output_ports(i) = new IOPort(output_port_width(i))
-			output_ports(i).write(Array.fill[Emulator_Numerics]((period - 1) * output_port_width(i) + Output_Port_Delay(i))(new NaN))
+			output_ports(i).write(Array.fill[Emulator_Numerics]((period - 1) * output_port_width(i) + Output_Port_Delay(i))(new Identity))
 			output_data(i) = new Array[Emulator_Numerics](output_port_width(i))
 			output_buffer(i) = new Array[Emulator_Numerics](output_port_width(i))
 		}
 
-	for (i ← 0 until register_length)		registers(i) = new Array[Emulator_Numerics](register_width(i))
+	for (i ← 0 until register_length)		registers(i) = Array.fill[Emulator_Numerics](register_width(i))(new Emulator_Numerics(0))
+	for (i ← 0 until accumulator_length)		accumulators(i) = new Accumulator(accumulator_width(i))
 
 	def invoke(): Unit =
 	{
@@ -63,6 +67,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 		val executer = new IMain(settings)
 		executer.beQuietDuring
 			{
+				executer.interpret("import DFG_Emulator.Emulator_Storage")
 				executer.interpret("import DFG_Emulator.Emulator_Numerics")
 				executer.interpret("import DFG_Emulator.NaN")
 				executer.interpret("import DFG_Emulator.Identity")
@@ -74,6 +79,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 				executer.bind("Input", "Array[Array[DFG_Emulator.Emulator_Numerics]]", input_data)
 				executer.bind("Output", "Array[Array[DFG_Emulator.Emulator_Numerics]]", output_data)
 				executer.bind("Register", "Array[Array[DFG_Emulator.Emulator_Numerics]]", registers)
+				executer.bind("Accumulator", "Array[DFG_Emulator.Accumulator]", accumulators)
 				executer.interpret(code)
 			}
 		for(i ← 0 until output_port_length)
@@ -87,6 +93,7 @@ class PU(val arg_pack: PU_Arg_Pack,
 				context.actorSelection("../PU_" + connection.destination.toString()) ! new Data_message(output_buffer(connection.source_output_port).clone(), connection.destination_input_port)
 			}
 		ec ! Local_Cycle_Finished(ID)
+
 	}
 
 	def receive =

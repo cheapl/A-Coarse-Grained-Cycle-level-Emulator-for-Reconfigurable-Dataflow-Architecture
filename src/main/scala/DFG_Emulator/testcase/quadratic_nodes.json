@@ -12,7 +12,9 @@
             "code":"Output(0)(0) = Input(0)(0) * (new Emulator_Numerics(-1)); Output(1)(0) = Output(0)(0)",
             "PU_type":1,
             "Data_Source_Index":"0",
-            "output_port_delay": "3,3"
+            "output_port_delay": "3,3",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -26,7 +28,9 @@
             "code":"Output(0)(0) = Input(0)(0).pow(new Emulator_Numerics(2))",
             "PU_type":1,
             "Data_Source_Index":"0",
-            "output_port_delay": "1"
+            "output_port_delay": "1",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -40,7 +44,9 @@
             "code":"Output(0)(0) = Input(0)(0) * Input(1)(0)",
             "PU_type":1,
             "Data_Source_Index":"1,2",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -54,7 +60,9 @@
             "code":"Output(0)(0) = Input(0)(0) * new Emulator_Numerics(2); Output(1)(0) = Output(0)(0)",
             "PU_type":1,
             "Data_Source_Index":"2",
-            "output_port_delay": "4,4"
+            "output_port_delay": "4,4",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -68,7 +76,9 @@
             "code":"Output(0)(0) = Input(0)(0) * new Emulator_Numerics(4)",
             "PU_type":0,
             "Data_Source_Index":"-1,-1",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -82,7 +92,9 @@
             "code":"Output(0)(0) = Input(0)(0) - Input(1)(0)",
             "PU_type":0,
             "Data_Source_Index":"-1,-1",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -96,7 +108,9 @@
             "code":"Output(0)(0) = Input(0)(0).sqrt(); Output(1)(0) = Output(0)(0)",
             "PU_type":0,
             "Data_Source_Index":"-1",
-            "output_port_delay": "0,0"
+            "output_port_delay": "0,0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -110,7 +124,9 @@
             "code":"Output(0)(0) = Input(0)(0) + Input(1)(0)",
             "PU_type":0,
             "Data_Source_Index":"-1,-1",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -124,7 +140,9 @@
             "code":"Output(0)(0) = Input(0)(0) / Input(1)(0); printVal.printVal(Output(0)(0), id)",
             "PU_type":-1,
             "Data_Source_Index":"-1,-1",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -138,7 +156,9 @@
             "code":"Output(0)(0) = Input(0)(0) - Input(1)(0)",
             "PU_type":0,
             "Data_Source_Index":"-1,-1",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         },
 
         {
@@ -152,7 +172,9 @@
             "code":"Output(0)(0) = Input(0)(0) / Input(1)(0); printVal.printVal(Output(0)(0), id)",
             "PU_type":-1,
             "Data_Source_Index":"-1,-1",
-            "output_port_delay": "0"
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
         }
 
     ]
