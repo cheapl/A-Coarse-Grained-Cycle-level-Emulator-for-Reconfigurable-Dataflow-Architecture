@@ -13,7 +13,9 @@
          "code":"Output(0)(0) = Input(0)(0) + new E_AnyVal(1); printVal.printVal(Output(0)(0))",
          "PU_type":1,
          "Data_Source_Index":"0",
-         "output_port_delay": "0"
+         "output_port_delay": "0",
+         "accumulator_length": 1,
+         "accumulator_width": "1"
      },
  
      {
@@ -27,7 +29,9 @@
          "code":"Output(0)(0) = Input(0)(0) + new E_AnyVal(1); printVal.printVal(Output(0)(0))",
          "PU_type":0,
          "Data_Source_Index":"-1",
-         "output_port_delay": "0"
+         "output_port_delay": "0",
+         "accumulator_length": 1,
+         "accumulator_width": "1"
      },
  
      {
@@ -41,7 +45,9 @@
          "code":"Output(0)(0) = Input(0)(0) + new E_AnyVal(1)(0); printVal.printVal(Output(0)(0))",
          "PU_type":0,
          "Data_Source_Index":"-1",
-         "output_port_delay": "0"
+         "output_port_delay": "0",
+         "accumulator_length": 1,
+         "accumulator_width": "1"
      },
 
      {
@@ -55,7 +61,9 @@
         "code":"Output(0)(0) = Input(0)(0) + new E_AnyVal(1); printVal.printVal(Output(0)(0))",
         "PU_type":0,
         "Data_Source_Index":"-1",
-        "output_port_delay": "0"
+        "output_port_delay": "0",
+        "accumulator_length": 1,
+        "accumulator_width": "1"
     },
 
     {
@@ -69,7 +77,9 @@
         "code":"Output(0)(0) = Input(0)(0) + new E_AnyVal(1); printVal.printVal(Output(0)(0))",
         "PU_type":-1,
         "Data_Source_Index":"-1",
-        "output_port_delay": "0"
+        "output_port_delay": "0",
+        "accumulator_length": 1,
+        "accumulator_width": "1"
     }
 
     ]

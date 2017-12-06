@@ -12,7 +12,7 @@ class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_inpu
   var destination_input_port:Int = Destination_input_port 
 }
 
-class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_Source_Index:Array[Int], Output_port_delay:Array[Int]){
+class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_Source_Index:Array[Int], Output_port_delay:Array[Int], Accumulator_length:Int, Accumulator_width:Array[Int]){
   var ID:Int = id 
   var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)))
   var input_port_length:Int = Input_port_length 
@@ -26,6 +26,8 @@ class arg_pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port
   var PU_type:Int = pu_type
   var Data_Source_Index:Array[Int] = data_Source_Index
   var output_port_delay:Array[Int] = Output_port_delay
+  var accumulator_length:Int = Accumulator_length
+  var accumulator_width:Array[Int] = Accumulator_width
 }
 
 
@@ -74,8 +76,10 @@ object parser{
       D(pu_type) = node("PU_type")
       S(data_Source_Index) = node("Data_Source_Index")
       S(output_port_delay) = node("output_port_delay")
+      D(accumulator_length) = node("accumulator_length")
+      S(accumulator_width) = node("accumulator_width")
     } yield {
-      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index, output_port_delay)
+      (id, input_port_length, output_port_length, input_port_width, output_port_width, register_length, register_width, code, pu_type, data_Source_Index, output_port_delay, accumulator_length, accumulator_width)
     }
 
     val edgesList = for {
@@ -115,7 +119,7 @@ object parser{
         if (Edge.source == id) {EdgesList(j) =  Edge; j+=1}
       }
 
-      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11))
+      Arg_packs(k) = new arg_pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11), nodesList(k)._12.toInt, strToList(nodesList(k)._13))
 
       k+=1
     }
@@ -130,6 +134,108 @@ object parser{
     }
     (Arg_packs, Source_arg_packs)
   }
+}
+
+
+object calTime{
+
+  def strToArray(source:String) : ArrayBuffer[Char] = {
+    var res = new ArrayBuffer[Char]()
+    for (char <- source){
+      if (char != ' ') res += char
+    }
+    res
+  }
+
+  def bindOperators(source:ArrayBuffer[Char]) : ArrayBuffer[String] = {
+    var res = new ArrayBuffer[String]()
+    var i:Int = 0
+    while (i < source.length){
+      if(source(i) == '='){
+        if(source(i+1) == '=') {res += "==";i+=2}
+        else i+=1
+      }
+
+			else if(source(i) == '-'){
+			if(source(i-1) != '(') {res += "-";i+=1}
+			else {i+=1}
+			}
+			else if(source(i) == '!'){
+        if(source(i+1) == '=') {res += "!=";i+=2}
+        else {res += "!";i+=1}
+      }
+      else if(source(i) == '>'){
+        if(source(i+1) == '=') res += ">="
+        else if(source(i+1) == '>' && source(i+2) != '>') {res += ">>";i+=2}
+        else if(source(i+1) == '>' && source(i+2) == '>') {res += ">>>";i+=3}
+        else {res += ">";i+=1}
+      }
+      else if(source(i) == '<'){
+        if(source(i+1) == '=') {res += "<=";i+2}
+        else if(source(i+1) == '<') {res += "<<";i+=2}
+        else {res += "<";i+=1}
+      }
+      else if(source(i) == '&'){
+        if(source(i+1) == '&') {res += "&&";i+=2}
+        else {res += "&";i+=1}
+      }
+      else if(source(i) == '|'){
+        if(source(i+1) == '|') {res += "||";i+=2}
+        else {res += "|";i+=1}
+      }
+			else if(source(i) == 's'){
+
+				if(source(i+1) == 'q' && source(i+2) == 'r' && source(i+3) == 't') {res += "sqrt";i+=4}
+
+				else {res += "s";i+=1}
+
+			}
+
+			else if(source(i) == 'p'){
+
+				if(source(i+1) == 'o' && source(i+2) == 'w') {res += "pow";i+=3}
+
+				else {res += "p";i+=1}
+
+			}
+
+      else {res += source(i).toString;i+=1}
+    }
+    res
+  }
+
+  def calTime(code: ArrayBuffer[String]) : Int = {
+    var res:Int = 0
+    for (ele <- code) {
+      ele match{
+        case "+" => res += 1;
+        case "-" => res += 1;
+        case "*" => res += 1;
+        case "/" => res += 1;
+        case "%" => res += 1;
+        case "==" => res += 1;
+        case "!=" => res += 1;
+        case ">" => res += 1;
+        case "<" => res += 1;
+        case ">=" => res += 1;
+        case "<=" => res += 1;
+        case "&&" => res += 1;
+        case "||" => res += 1;
+        case "!" => res += 1;
+        case "&" => res += 1;
+        case "|" => res += 1;
+        case "^" => res += 1;
+        case "~" => res += 1;
+        case "<<" => res += 1;
+        case ">>" => res += 1;
+        case ">>>" => res += 1;
+        case "sqrt" => res += 1;
+        case "pow" => res += 1;
+        case ele:String => res += 0;
+      }
+    }
+    res
+  } 
 }
 
 
