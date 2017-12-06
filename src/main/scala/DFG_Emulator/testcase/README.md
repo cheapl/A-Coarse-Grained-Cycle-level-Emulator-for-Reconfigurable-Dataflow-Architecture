@@ -21,6 +21,8 @@
 * It will take 7 time units.
 * 5 sources and 1 sink. When sink's output is not NaN for first time, it indicates the termination of multiplication.
 
+![Alt text](matrix.jpg)
+
 ## Quadratic formula
 
 * 11 PUs
