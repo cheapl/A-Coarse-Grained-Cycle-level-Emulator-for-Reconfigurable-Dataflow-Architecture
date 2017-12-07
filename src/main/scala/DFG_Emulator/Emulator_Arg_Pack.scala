@@ -8,10 +8,10 @@ class edge(Source:Int, Destination:Int, Source_output_port:Int, Destination_inpu
 	var destination_input_port:Int = Destination_input_port
 }
 
-class PU_Arg_Pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_source_index: Array[Int], Output_port_delay:Array[Int], Accumulator_length:Int, Accumulator_width:Array[Int])
+class PU_Arg_Pack(id:Int, Input_port_length:Int, Output_port_length:Int, Input_port_width:Array[Int], Output_port_width:Array[Int], Register_length:Int, Register_width:Array[Int], Code: String, EdgesList:Array[edge], pu_type:Int, data_source_index: Array[Int], Output_port_delay:Array[Int], Accumulator_length:Int, Accumulator_width:Array[Int], fileNameConfig:String)
 {
 	var ID:Int = id
-	var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)))
+	var period:Int = calTime.calTime(calTime.bindOperators(calTime.strToArray(Code)),fileNameConfig)
 	var input_port_length:Int = Input_port_length
 	var output_port_length:Int = Output_port_length
 	var input_port_width:Array[Int] = Input_port_width

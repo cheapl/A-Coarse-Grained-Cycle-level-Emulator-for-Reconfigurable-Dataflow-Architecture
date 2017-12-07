@@ -22,7 +22,7 @@ object DFG_Configuration_Parser{
   }
 
 
-  def parse(fileNameNode: String, fileNameEdge: String): (Array[PU_Arg_Pack],Array[PU_Arg_Pack]) = {
+  def parse(fileNameNode: String, fileNameEdge: String, fileNameConfig: String): (Array[PU_Arg_Pack],Array[PU_Arg_Pack]) = {
     var nodesStr:String = ""
     var edgesStr:String = ""
 
@@ -86,17 +86,15 @@ object DFG_Configuration_Parser{
       for (edg <- edgesArray){
         if (edg.source == id) counter += 1
       }
-      //println(counter)
+     
       var EdgesList = new Array[edge](counter)
       for (edg <- edgesArray){
         if (edg.source == id) {EdgesList(j) =  edg; j+=1}
       }
-      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11), nodesList(k)._12.toInt, strToList(nodesList(k)._13))
+      Arg_packs(k) = new PU_Arg_Pack(id, nodesList(k)._2.toInt, nodesList(k)._3.toInt, strToList(nodesList(k)._4), strToList(nodesList(k)._5), nodesList(k)._6.toInt, strToList(nodesList(k)._7), nodesList(k)._8, EdgesList, nodesList(k)._9.toInt, strToList(nodesList(k)._10), strToList(nodesList(k)._11), nodesList(k)._12.toInt, strToList(nodesList(k)._13), fileNameConfig)
 
       k+=1
     }
-
-    //println(source_counter)
 
 
     var Source_arg_packs = new Array[PU_Arg_Pack](source_counter)
@@ -129,11 +127,11 @@ object calTime{
     var res = new ArrayBuffer[String]()
     var i:Int = 0
     while (i < source.length){
-      //println(i)
       if(source(i) == '='){
         if(source(i+1) == '=') {res += "==";i+=2}
         else i+=1
       }
+
 			else if(source(i) == '-'){
 			if(source(i-1) != '(') {res += "-";i+=1}
 			else {i+=1}
@@ -161,61 +159,94 @@ object calTime{
         if(source(i+1) == '|') {res += "||";i+=2}
         else {res += "|";i+=1}
       }
-
 			else if(source(i) == 's'){
 
 				if(source(i+1) == 'q' && source(i+2) == 'r' && source(i+3) == 't') {res += "sqrt";i+=4}
-
 				else {res += "s";i+=1}
-
 			}
-
 			else if(source(i) == 'p'){
-
 				if(source(i+1) == 'o' && source(i+2) == 'w') {res += "pow";i+=3}
-
 				else {res += "p";i+=1}
-
 			}
       else {res += source(i).toString;i+=1}
     }
     res
   }
 
-  def calTime(code: ArrayBuffer[String]) : Int = {
+  def calOperatorTime(fileNameConfig: String): Map[String,Int] = {
+    var configStr:String = ""
+    var file=Source.fromFile(fileNameConfig)
+    for(line <- file.getLines) configStr = configStr + line
+    file.close
+
+    var configList = for {
+      Some(M(map)) <- List(JSON.parseFull(configStr))
+      L(operators) = map("operators")
+      M(o) <- operators
+      S(operator) = o("operator")
+      D(period) = o("period")
+    } yield {
+      (operator, period)
+    }
+
+    var configMap:Map[String,Int] = Map()
+    for (ele <- configList){
+      configMap += (ele._1 -> ele._2.toInt)
+    }
+
+    configMap
+  }
+
+  def calTime(code: ArrayBuffer[String], fileNameConfig: String) : Int = {
+    var configMap = calOperatorTime(fileNameConfig)
+    //println(configMap.size)
+    var length = configMap.size
+    var resArray = new Array[Int](length)
+    var operatorArray = new Array[String](length)
+    resArray = resArray.map(x => 0)
+    operatorArray = operatorArray.map(x => "none")
+
     var res:Int = 0
     for (ele <- code) {
-      //println(ele)
-      ele match{
-        case "+" => res += 1;
-        case "-" => res += 1;
-        case "*" => res += 1;
-        case "/" => res += 1;
-        case "%" => res += 1;
-        case "==" => res += 1;
-        case "!=" => res += 1;
-        case ">" => res += 1;
-        case "<" => res += 1;
-        case ">=" => res += 1;
-        case "<=" => res += 1;
-        case "&&" => res += 1;
-        case "||" => res += 1;
-        case "!" => res += 1;
-        case "&" => res += 1;
-        case "|" => res += 1;
-        case "^" => res += 1;
-        case "~" => res += 1;
-        case "<<" => res += 1;
-        case ">>" => res += 1;
-        case ">>>" => res += 1;
-        case "sqrt" => res += 1;
-        case "pow" => res += 1;
-        case ele:String => res += 0;
+      if(ele == "+") {resArray(0) += 1; operatorArray(0) = "+"}
+      else if(ele == "-") {resArray(1) += 1; operatorArray(1) = "-"}
+      else if(ele == "*") {resArray(2) += 1; operatorArray(2) = "*"}
+      else if(ele == "/") {resArray(3) += 1; operatorArray(3) = "/"}
+      else if(ele == "%") {resArray(4) += 1; operatorArray(4) = "%"}
+      else if(ele == "==") {resArray(5) += 1; operatorArray(5) = "=="}
+      else if(ele == "!=") {resArray(6) += 1; operatorArray(6) = "!="}
+      else if(ele == ">") {resArray(7) += 1; operatorArray(7) = ">"}
+      else if(ele == "<") {resArray(8) += 1; operatorArray(8) = "<"}
+      else if(ele == ">=") {resArray(9) += 1; operatorArray(9) = ">="}
+      else if(ele == "<=") {resArray(10) += 1; operatorArray(10) = "<="}
+      else if(ele == "&&") {resArray(11) += 1; operatorArray(11) = "&&"}
+      else if(ele == "||") {resArray(12) += 1; operatorArray(12) = "||"}
+      else if(ele == "!") {resArray(13) += 1; operatorArray(13) = "!"}
+      else if(ele == "&") {resArray(14) += 1; operatorArray(14) = "&"}
+      else if(ele == "|") {resArray(15) += 1; operatorArray(15) = "|"}
+      else if(ele == "^") {resArray(16) += 1; operatorArray(16) = "^"}
+      else if(ele == "~") {resArray(17) += 1; operatorArray(17) = "~"}
+      else if(ele == "<<") {resArray(18) += 1; operatorArray(18) = "<<"}
+      else if(ele == ">>") {resArray(19) += 1; operatorArray(19) = ">>"}
+      else if(ele == ">>>") {resArray(20) += 1; operatorArray(20) = ">>>"}
+      else if(ele == "sqrt") {resArray(21) += 1; operatorArray(21) = "sqrt"}
+      else if(ele == "pow") {resArray(22) += 1; operatorArray(22) = "pow"}
+      else res += 0
+    }
+
+    var resList = resArray.toList
+    var operatorList = operatorArray.toList
+    var i:Int = 0
+
+    while(i < length){
+      if (resList(i) > 0){
+        var current = math.ceil(resList(i).toDouble / configMap(operatorList(i)).toDouble)
+        res += current.toInt
       }
+      i += 1
     }
     res
   } 
-
 }
 
 
@@ -227,19 +258,6 @@ object calTime{
 //    while (i < res.length){
 //      println("ID:"+res(i).ID)
 //      println("period:"+res(i).period)
-//      println("input_port_length:"+res(i).input_port_length)
-//      println("output_port_length:"+res(i).output_port_length)
-//      println("input_port_width(0):"+res(i).input_port_width(0))
-//      println("output_port_width(0):"+res(i).output_port_width(0))
-//      println("register_length:"+res(i).register_length)
-//      println("register_width(0):"+res(i).register_width(0))
-//      println("code:"+res(i).code)
-//      if(res(i).edges_list.length > 0) println("edges_list(0).destination:"+res(i).edges_list(0).destination)
-//      else println("No edge start from this PU")
-//      println("PU_type:"+res(i).PU_type)
-//      if(res(i).PU_type == 1) println("Data_Source_Index(0):"+res(i).Data_Source_Index(0))
-//      else println("This PU not get data from csv file")
-//      println("---------------")
 //      i+=1
 //    }
 //  }
