@@ -1,0 +1,280 @@
+{
+
+
+
+    "nodes": [
+
+
+
+        {
+
+            "ID": 0,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":1,
+            "Data_Source_Index":"0,3",
+            "output_port_delay": "0,0",
+             "accumulator_length": 1,
+             "accumulator_width": "1"
+        },
+
+
+
+        {
+
+            "ID": 1,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":1,
+
+            "Data_Source_Index":"-1,4",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 2,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":1,
+
+            "Data_Source_Index":"-1,5",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 3,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":1,
+
+            "Data_Source_Index":"1,-1",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 4,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":0,
+
+            "Data_Source_Index":"-1,-1",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 5,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":0,
+
+            "Data_Source_Index":"-1,-1",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 6,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":1,
+
+            "Data_Source_Index":"2,-1",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 7,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":0,
+
+            "Data_Source_Index":"-1,-1",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        },
+
+
+
+        {
+
+            "ID": 8,
+
+            "input_port_length": 2,
+
+            "output_port_length": 2,
+
+            "input_port_width": "1,1",
+
+            "output_port_width": "1,1",
+
+            "register_length": 1,
+
+            "register_width": "1",
+
+            "code":"Accumulator(0).accumulate(Input(0)(0)*Input(1)(0));Output(0)(0) = Input(0)(0);Output(1)(0) = Input(1)(0);printVal.printVal(Accumulator(0).accumulator(0),id)",
+
+            "PU_type":-1,
+
+            "Data_Source_Index":"-1,-1",
+
+            "output_port_delay": "0,0",
+            "accumulator_length": 1,
+            "accumulator_width": "1"
+
+        }
+
+
+
+    ]
+
+
+
+}
