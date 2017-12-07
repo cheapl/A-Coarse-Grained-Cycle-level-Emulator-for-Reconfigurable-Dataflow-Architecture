@@ -1,0 +1,179 @@
+{
+    "nodes": [
+
+        {
+            "ID": 0,
+            "input_port_length": 1,
+            "output_port_length": 2,
+            "input_port_width": "1",
+            "output_port_width": "1,1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) * (new Emulator_Numerics(-1)); Output(1)(0) = Output(0)(0)",
+            "PU_type":1,
+            "Data_Source_Index":"0",
+            "output_port_delay": "3,3",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 1,
+            "input_port_length": 1,
+            "output_port_length": 1,
+            "input_port_width": "1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0).pow(new Emulator_Numerics(2))",
+            "PU_type":1,
+            "Data_Source_Index":"0",
+            "output_port_delay": "1",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 2,
+            "input_port_length": 2,
+            "output_port_length": 1,
+            "input_port_width": "1,1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) * Input(1)(0)",
+            "PU_type":1,
+            "Data_Source_Index":"1,2",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 3,
+            "input_port_length": 1,
+            "output_port_length": 2,
+            "input_port_width": "1",
+            "output_port_width": "1,1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) * new Emulator_Numerics(2); Output(1)(0) = Output(0)(0)",
+            "PU_type":1,
+            "Data_Source_Index":"2",
+            "output_port_delay": "4,4",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 4,
+            "input_port_length": 1,
+            "output_port_length": 1,
+            "input_port_width": "1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) * new Emulator_Numerics(4)",
+            "PU_type":0,
+            "Data_Source_Index":"-1,-1",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 5,
+            "input_port_length": 2,
+            "output_port_length": 1,
+            "input_port_width": "1,1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) - Input(1)(0)",
+            "PU_type":0,
+            "Data_Source_Index":"-1,-1",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 6,
+            "input_port_length": 1,
+            "output_port_length": 2,
+            "input_port_width": "1",
+            "output_port_width": "1,1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0).sqrt(); Output(1)(0) = Output(0)(0)",
+            "PU_type":0,
+            "Data_Source_Index":"-1",
+            "output_port_delay": "0,0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 7,
+            "input_port_length": 2,
+            "output_port_length": 1,
+            "input_port_width": "1,1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) + Input(1)(0)",
+            "PU_type":0,
+            "Data_Source_Index":"-1,-1",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 8,
+            "input_port_length": 2,
+            "output_port_length": 1,
+            "input_port_width": "1,1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) / Input(1)(0); printVal.printVal(Output(0)(0), id)",
+            "PU_type":-1,
+            "Data_Source_Index":"-1,-1",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 9,
+            "input_port_length": 2,
+            "output_port_length": 1,
+            "input_port_width": "1,1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) - Input(1)(0)",
+            "PU_type":0,
+            "Data_Source_Index":"-1,-1",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        },
+
+        {
+            "ID": 10,
+            "input_port_length": 2,
+            "output_port_length": 1,
+            "input_port_width": "1,1",
+            "output_port_width": "1",
+            "register_length": 1,
+            "register_width": "1",
+            "code":"Output(0)(0) = Input(0)(0) / Input(1)(0); printVal.printVal(Output(0)(0), id)",
+            "PU_type":-1,
+            "Data_Source_Index":"-1,-1",
+            "output_port_delay": "0",
+            "accumulator_length": 0,
+            "accumulator_width": "0"
+        }
+]}

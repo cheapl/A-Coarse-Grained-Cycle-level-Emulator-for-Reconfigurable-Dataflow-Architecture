@@ -1,0 +1,122 @@
+{
+    
+     "operators": [
+ 
+    {
+        "operator": "+",
+        "period": 1
+    },
+
+    {
+        "operator": "-",
+        "period": 1
+    },
+
+    {
+        "operator": "*",
+        "period": 1
+    },
+
+    {
+        "operator": "/",
+        "period": 1
+    },
+
+    {
+        "operator": "%",
+        "period": 1
+    },
+
+    {
+        "operator": "==",
+        "period": 1
+    },
+
+    {
+        "operator": "!=",
+        "period": 1
+    },
+
+    {
+        "operator": ">",
+        "period": 1
+    },
+
+    {
+        "operator": "<",
+        "period": 1
+    },
+
+    {
+        "operator": ">=",
+        "period": 1
+    },
+
+    {
+        "operator": "<=",
+        "period": 1
+    },
+
+    {
+        "operator": "&&",
+        "period": 1
+    },
+
+    {
+        "operator": "||",
+        "period": 1
+    },
+
+    {
+        "operator": "!",
+        "period": 1
+    },
+
+    {
+        "operator": "&",
+        "period": 1
+    },
+
+    {
+        "operator": "|",
+        "period": 1
+    },
+
+    {
+        "operator": "^",
+        "period": 1
+    },
+
+    {
+        "operator": "~",
+        "period": 1
+    },
+
+    {
+        "operator": "<<",
+        "period": 1
+    },
+
+    {
+        "operator": ">>",
+        "period": 1
+    },
+
+    {
+        "operator": ">>>",
+        "period": 1
+    },
+
+    {
+        "operator": "sqrt",
+        "period": 1
+    },
+
+    {
+        "operator": "pow",
+        "period": 1
+    }
+
+    ]
+ 
+   }
