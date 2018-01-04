@@ -988,5 +988,19 @@ object printVal{
     else println("Error")
   }
 
+  def toStr(x: E_AnyVal):String = {
+    var res:String = ""
+    if (x.value.isInstanceOf[Int]) res = "$"+x.value.asInstanceOf[Int].toString+":Int"+"$"
+    else if (x.value.isInstanceOf[Long]) res = "$"+x.value.asInstanceOf[Long].toString+":Long"+"$"
+    else if (x.value.isInstanceOf[Float]) res = "$"+x.value.asInstanceOf[Float].toString+":Float"+"$"
+    else if (x.value.isInstanceOf[Double]) res = "$"+x.value.asInstanceOf[Double].toString+":Double"+"$"
+    else if (x.value.isInstanceOf[Char]) res = "$"+x.value.asInstanceOf[Char].toString+":Char"+"$"
+    else if (x.value.isInstanceOf[Boolean]) res = "$"+x.value.asInstanceOf[Boolean].toString+":Boolean"+"$"
+    else if (x.isInstanceOf[NaN]) res = "NaN"
+    else if (x.isInstanceOf[Identity]) res = "Identity"
+    else res = "Error"
+    res
+  }
+
 }
 
