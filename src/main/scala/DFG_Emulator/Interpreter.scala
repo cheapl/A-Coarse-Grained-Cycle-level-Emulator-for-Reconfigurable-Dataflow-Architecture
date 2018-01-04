@@ -600,6 +600,7 @@ object Interpreter{
         }
         var idx = idx_str.toInt
         if (line(1) == "=") pu.accumulators(idx) = calculator(equa,pu)
+        //MARK
         else if (line(1) == "+=") pu.accumulators(idx) = pu.accumulators(idx) + calculator(equa,pu)
       }
     }
