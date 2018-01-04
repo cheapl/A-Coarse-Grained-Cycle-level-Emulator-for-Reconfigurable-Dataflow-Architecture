@@ -37,6 +37,10 @@ object Interpreter{
         if(source(i+1) == '=') {res += "==";i+=2}
         else {res += "=";i+=1}
       }
+      else if(source(i) == '+'){
+        if(source(i+1) == '=') {res += "+=";i+=2}
+        else {res += "+";i+=1}
+      }
       else if(source(i) == '!'){
         if(source(i+1) == '=') {res += "!=";i+=2}
         else {res += "!";i+=1}
@@ -79,7 +83,7 @@ object Interpreter{
   def bind(source:ArrayBuffer[String]) : ArrayBuffer[String] = {
     var res = new ArrayBuffer[String]()
     var new_res = new ArrayBuffer[String]()
-    var operators = Array("(",")",",","{","}","+","-","*","/","=","==","!=",">","<",">=","<=","&&","||","!","sqrt","pow","if",";")
+    var operators = Array("(",")",",","{","}","+","-","*","/","=","+=","==","!=",">","<",">=","<=","&&","||","!","sqrt","pow","if",";")
     var i:Int = 0
     var flag:Boolean = false
     var literal:String = ""
@@ -595,7 +599,8 @@ object Interpreter{
           i+=1
         }
         var idx = idx_str.toInt
-        pu.accumulators(idx) = calculator(equa,pu)
+        if (line(1) == "=") pu.accumulators(idx) = calculator(equa,pu)
+        else if (line(1) == "+=") pu.accumulators(idx) = pu.accumulators(idx) + calculator(equa,pu)
       }
     }
 
@@ -608,13 +613,16 @@ object Interpreter{
 object main{
 
   def main(args: Array[String]): Unit = {
-    var code:String = "O[0][0] = (pow(I[0][0],$2:Int$) + sqrt(I[1][0])) * $2:Int$; if ( (O[0][0] == I[0][0]) && (O[0][0] == I[1][0]) ) {O[1][0] = Identity} else {O[1][0] = NaN}"
+    //var code:String = "O[0][0] = (pow(I[0][0],$2:Int$) + sqrt(I[1][0])) * $2:Int$; if ( (O[0][0] == I[0][0]) && (O[0][0] == I[1][0]) ) {O[1][0] = Identity} else {O[1][0] = NaN}"
+    //var code:String = "O[0][0] = I[0][0] + $1:Int$"
+    var code:String = "A[0] += I[0][0] * I[1][0]; O[0][0] = I[0][0]; O[1][0] = I[1][0]"
     var PU_test:PU = new PU
     Interpreter.invoke(code,PU_test)
     printVal.printVal(PU_test.input_data(0)(0))
     printVal.printVal(PU_test.input_data(1)(0))
     printVal.printVal(PU_test.output_data(0)(0))
     printVal.printVal(PU_test.output_data(1)(0))
+    printVal.printVal(PU_test.accumulators(0))
   }
 
 }
