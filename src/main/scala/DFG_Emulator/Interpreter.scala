@@ -110,31 +110,6 @@ object Interpreter{
     new_res
   }
 
-  def calTime(code: ArrayBuffer[String]) : Int = {
-    var res:Int = 0
-    for (ele <- code) {
-      ele match{
-        case "+" => res += 1;
-        case "-" => res += 1;
-        case "*" => res += 1;
-        case "/" => res += 1;
-        case "sqrt" => res += 1;
-        case "pow" => res += 1;
-        //Boolean
-        case "==" => res += 1;
-        case "!=" => res += 1;
-        case ">" => res += 1;
-        case "<" => res += 1;
-        case ">=" => res += 1;
-        case "<=" => res += 1;
-        case "&&" => res += 1;
-        case "||" => res += 1;
-        case "!" => res += 1;
-        case ele:String => res += 0;
-      }
-    }
-    res
-  }
 
   def replace(input:String, pu:PU) : E_AnyVal = {
     var res = new E_AnyVal(-1)
